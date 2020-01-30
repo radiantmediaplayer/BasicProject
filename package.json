@@ -1,0 +1,24 @@
+{
+  "name": "basicproject",
+  "version": "1.0.0",
+  "author": "Radiant Media Player <support@radiantmediaplayer.com>",
+  "description": "Example for using Radiant Media Player in a web-based Tizen TV app (Samsung smart TV).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radiantmediaplayer/basicproject.git"
+  },
+  "main": "js/player.js",
+  "keywords": [
+    "smart",
+    "tv",
+    "tizen",
+    "video",
+    "html5",
+    "javascript"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/radiantmediaplayer/basicproject/issues"
+  },
+  "homepage": "https://www.radiantmediaplayer.com/docs/latest/smart-tv.html"
+}
