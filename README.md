@@ -22,10 +22,14 @@ Players displayed use our dedicated TV player layout for a better fullscreen exp
 
 This demo app has been built to support Basic Device and Smart Control 2016 remotes and tested on a Tizen 4 2018 Samsung Smart TV.
 
+## Example
+A live example of our demo app [can be viewed here](https://www.radiantmediaplayer.com/smarttv/). This example 
+is made to be tested in web browsers (including Samsung Internet for Tizen 3+). When testing in a real web app for Tizen TV make sure to use your PLATFORM Edition license key. 
+
 ## Issues
 Issues should be submitted in this GitHub page. We will do our best to review them.
 
 ## License
-BasicProject is released under MIT
+BasicProject is released under MIT.
 
-Radiant Media Player has its own license which can be found here: [https://www.radiantmediaplayer.com/terms-of-service.html](https://www.radiantmediaplayer.com/terms-of-service.html)
+Radiant Media Player has its own license which can be found here: [https://www.radiantmediaplayer.com/terms-of-service.html](https://www.radiantmediaplayer.com/terms-of-service.html).
