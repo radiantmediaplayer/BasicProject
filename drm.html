@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<title>TODO supply a title</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.6.5/js/rmp.min.js"></script>
+	<div id="rmpPlayer" data-rwlan="bXlSbXBaaW5nQXBw"></div>
+	<script>
+		var src = {
+			dash: 'https://storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd'
+		};
+		var settings = {
+			licenseKey: 'a2VpdWR5dHNobEAxNDg4ODkxNTQy',
+			src: src,
+			autoplay: true,
+			contentMetadata: {
+				title: 'Smart TV Demo App - DASH Widevine DRM',
+			},
+			shakaDrm: {
+				servers: {
+					'com.widevine.alpha': 'https://cwip-shaka-proxy.appspot.com/header_auth'
+				}
+			},
+			shakaRequestConfiguration: {
+				license: {
+					headers: {
+						'CWIP-Auth-Header': 'VGhpc0lzQVRlc3QK'
+					}
+				}
+			},
+			width: 640,
+			height: 360,
+			skin: 'tv'
+		};
+		var elementID = 'rmpPlayer';
+		window.rmp = new RadiantMP(elementID);
+		window.rmp.init(settings);
+	</script>
+	<script src="js/player.js"></script>
+</body>
+
+</html>

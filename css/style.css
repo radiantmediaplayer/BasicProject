@@ -1,0 +1,12 @@
+body {
+  font-family: 'PT Sans', sans-serif;
+}
+
+.rmp-button-hover {
+    color: #ff1744;
+}
+
+.rmp-tv-player.rmp-live .rmp-i-quick-forward-tv,
+.rmp-tv-player.rmp-live .rmp-i-quick-rewind-tv {
+  display: none;
+}
