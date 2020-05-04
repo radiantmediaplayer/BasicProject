@@ -32,4 +32,4 @@ Issues should be submitted in this GitHub page. We will do our best to review th
 ## License
 BasicProject is released under MIT.
 
-Radiant Media Player has its own license which can be found here: [https://www.radiantmediaplayer.com/terms-of-service.html](https://www.radiantmediaplayer.com/terms-of-service.html).
+Radiant Media Player is a commercial HTML5 media player and has its own license which can be found here: [https://www.radiantmediaplayer.com/terms-of-service.html](https://www.radiantmediaplayer.com/terms-of-service.html). You may request a free trial for Radiant Media Player at: [https://www.radiantmediaplayer.com/free-trial.html](https://www.radiantmediaplayer.com/free-trial.html).
