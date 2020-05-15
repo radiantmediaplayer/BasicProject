@@ -10,3 +10,8 @@ body {
 .rmp-tv-player.rmp-live .rmp-i-quick-rewind-tv {
   display: none;
 }
+
+.rmp-tv-player .rmp-title,
+.rmp-tv-player .rmp-description {
+  max-width: 50%;
+}
