@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.7.10/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.8.2/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
@@ -22,13 +22,14 @@
 			contentMetadata: {
 				title: 'Smart TV Demo App - DASH with video ads',
 			},
+			hideModule: {
+				quality: true
+			},
 			autoplay: true,
 			ads: true,
 			adCountDown: true,
 			adParser: 'rmp-vast',
 			adTagUrl: 'https://www.radiantmediaplayer.com/vast/tags/inline-linear.xml',
-			width: 640,
-			height: 360,
 			skin: 'tv'
 		};
 		var elementID = 'rmpPlayer';

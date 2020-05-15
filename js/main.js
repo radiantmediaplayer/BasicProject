@@ -40,8 +40,3 @@ var _onKeyDown = function (e) {
 
 // when player is ready we wire the UI
 document.addEventListener('keydown', _onKeyDown);
-
-// user agent info
-var userAgentElement = document.getElementById('userAgent');
-var userAgentString = navigator.userAgent;
-userAgentElement.innerHTML = userAgentString;

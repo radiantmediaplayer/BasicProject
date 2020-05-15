@@ -2,7 +2,7 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
-.rmp-button-hover {
+.rmp-button.rmp-button-hover {
     color: #ff1744;
 }
 

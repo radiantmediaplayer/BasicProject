@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>Smart TV Demo App - MP4</title>
+	<title>Smart TV Demo App - HLS VOD</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -14,19 +14,17 @@
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			mp4: [
-				'https://www.radiantmediaplayer.com/media/bbb-360p.mp4'
-			]
+			hls: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/playlist.m3u8'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
-			contentMetadata: {
-				title: 'Smart TV Demo App - MP4',
-			},
 			hideModule: {
 				quality: true
+			},
+			contentMetadata: {
+				title: 'Smart TV Demo App - HLS VOD',
 			},
 			skin: 'tv'
 		};

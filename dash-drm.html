@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>Smart TV Demo App - MP4</title>
+	<title>Smart TV Demo App - DASH Widevine DRM</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -14,19 +14,29 @@
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			mp4: [
-				'https://www.radiantmediaplayer.com/media/bbb-360p.mp4'
-			]
+			dash: 'https://storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
 			contentMetadata: {
-				title: 'Smart TV Demo App - MP4',
+				title: 'Smart TV Demo App - DASH Widevine DRM',
 			},
 			hideModule: {
 				quality: true
+			},
+			shakaDrm: {
+				servers: {
+					'com.widevine.alpha': 'https://cwip-shaka-proxy.appspot.com/header_auth'
+				}
+			},
+			shakaRequestConfiguration: {
+				license: {
+					headers: {
+						'CWIP-Auth-Header': 'VGhpc0lzQVRlc3QK'
+					}
+				}
 			},
 			skin: 'tv'
 		};

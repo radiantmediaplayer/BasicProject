@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" 
-    xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/BasicProject" version="1.0.0" viewmodes="maximized">
+    xmlns:tizen="http://tizen.org/ns/widgets" id="https://github.com/radiantmediaplayer/BasicProject" version="1.0.3" viewmodes="maximized">
     <tizen:application id="DLhcD7D3fR.BasicProject" package="DLhcD7D3fR" required_version="2.3"/>
     <content src="index.html"/>
     <tizen:content-security-policy>script-src *</tizen:content-security-policy>

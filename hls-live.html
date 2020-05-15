@@ -4,39 +4,28 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>Smart TV Demo App - DASH Widevine DRM</title>
+	<title>Smart TV Demo App - HLS Live</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.7.10/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.8.2/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			dash: 'https://storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd'
+			hls: 'https://5b44cf20b0388.streamlock.net:8443/live/ngrp:live_all/playlist.m3u8'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
+			hideModule: {
+				quality: true
+			},
 			contentMetadata: {
-				title: 'Smart TV Demo App - DASH Widevine DRM',
+				title: 'Smart TV Demo App - HLS Live',
 			},
-			shakaDrm: {
-				servers: {
-					'com.widevine.alpha': 'https://cwip-shaka-proxy.appspot.com/header_auth'
-				}
-			},
-			shakaRequestConfiguration: {
-				license: {
-					headers: {
-						'CWIP-Auth-Header': 'VGhpc0lzQVRlc3QK'
-					}
-				}
-			},
-			width: 640,
-			height: 360,
 			skin: 'tv'
 		};
 		var elementID = 'rmpPlayer';

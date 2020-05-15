@@ -76,123 +76,54 @@ var _triggerButton = function () {
 
 // when TV remote buttons are pressed do something
 // we deal with 2 kind of remote: Basic Device, Smart Control 2016
-var getSupportedKeys;
-try {
-  getSupportedKeys = tizen.tvinputdevice.getSupportedKeys();
-  window.console.log(getSupportedKeys);
-  tizen.tvinputdevice.registerKey('MediaPlayPause');
-  tizen.tvinputdevice.registerKey('MediaRewind');
-  tizen.tvinputdevice.registerKey('MediaFastForward');
-  tizen.tvinputdevice.registerKey('MediaPlay');
-  tizen.tvinputdevice.registerKey('MediaPause');
-  tizen.tvinputdevice.registerKey('MediaStop');
-  tizen.tvinputdevice.registerKey('Back');
-  tizen.tvinputdevice.registerKey('ArrowLeft');
-  tizen.tvinputdevice.registerKey('ArrowUp');
-  tizen.tvinputdevice.registerKey('ArrowRight');
-  tizen.tvinputdevice.registerKey('ArrowDown');
-  tizen.tvinputdevice.registerKey('Enter');
-  tizen.tvinputdevice.registerKey('Caption');
-  tizen.tvinputdevice.registerKey('ColorF0Red');
-} catch (e) {
-  window.console.log(e);
-}
 
 var _onKeyDown = function (e) {
   var currentTime = rmp.getCurrentTime();
   var keyCode = e.keyCode;
   window.console.log('Key code called : ' + keyCode);
   rmp.setControlsVisible(true);
-  if (getSupportedKeys) {
-    window.console.log(tizen.tvinputdevice.getKey('MediaRewind').code);
-    switch (keyCode) {
-      case tizen.tvinputdevice.getKey('MediaRewind').code:
-        rmp.seekTo(currentTime - 10000);
-        break;
-      case tizen.tvinputdevice.getKey('MediaFastForward').code:
-        rmp.seekTo(currentTime + 10000);
-        break;
-      case tizen.tvinputdevice.getKey('Caption').code:
-      case tizen.tvinputdevice.getKey('ColorF0Red').code:
-        _handleCaptions();
-        break;
-      case tizen.tvinputdevice.getKey('Back').code:
-        window.location.replace('index.html');
-        break;
-      case tizen.tvinputdevice.getKey('MediaPlay').code:
+  switch (keyCode) {
+    case 412: // MediaRewind 
+      rmp.seekTo(currentTime - 10000);
+      break;
+    case 417: // MediaFastForward 
+      rmp.seekTo(currentTime + 10000);
+      break;
+    case 10221: // Caption
+    case 403: // ColorF0Red
+      _handleCaptions();
+      break;
+    case 10009: // Back
+      window.location.replace('index.html');
+      break;
+    case 415: // MediaPlay
+      rmp.play();
+      break;
+    case 19: // MediaPause
+      rmp.pause();
+      break;
+    case 413: // MediaStop
+      rmp.stop();
+      break;
+    case 37: // ArrowLeft
+    case 38: // ArrowUp
+    case 39: // ArrowRight
+    case 40: // ArrowDown
+      _handleButtons(keyCode);
+      break;
+    case 13: // Enter
+      _triggerButton();
+      break;
+    case 10252: // MediaPlayPause
+      isPaused = rmp.getPaused();
+      if (isPaused) {
         rmp.play();
-        break;
-      case tizen.tvinputdevice.getKey('MediaPause').code:
+      } else {
         rmp.pause();
-        break;
-      case tizen.tvinputdevice.getKey('MediaStop').code:
-        rmp.stop();
-        break;
-      case tizen.tvinputdevice.getKey('ArrowLeft').code:
-      case tizen.tvinputdevice.getKey('ArrowUp').code:
-      case tizen.tvinputdevice.getKey('ArrowRight').code:
-      case tizen.tvinputdevice.getKey('ArrowDown').code:
-        _handleButtons(keyCode);
-        break;
-      case tizen.tvinputdevice.getKey('Enter').code:
-        _triggerButton();
-        break;
-      case tizen.tvinputdevice.getKey('MediaPlayPause').code:
-        isPaused = rmp.getPaused();
-        if (isPaused) {
-          rmp.play();
-        } else {
-          rmp.pause();
-        }
-        break;
-      default:
-        break;
-    }
-  } else {
-    // for web testing where tizen global var is not available
-    switch (keyCode) {
-      case 412: // MediaRewind 
-        rmp.seekTo(currentTime - 10000);
-        break;
-      case 417: // MediaFastForward 
-        rmp.seekTo(currentTime + 10000);
-        break;
-      case 10221: // Caption
-      case 403: // ColorF0Red
-        _handleCaptions();
-        break;
-      case 10009: // Back
-        window.location.replace('index.html');
-        break;
-      case 415: // MediaPlay
-        rmp.play();
-        break;
-      case 19: // MediaPause
-        rmp.pause();
-        break;
-      case 413: // MediaStop
-        rmp.stop();
-        break;
-      case 37: // ArrowLeft
-      case 38: // ArrowUp
-      case 39: // ArrowRight
-      case 40: // ArrowDown
-        _handleButtons(keyCode);
-        break;
-      case 13: // Enter
-        _triggerButton();
-        break;
-      case 10252: // MediaPlayPause
-        isPaused = rmp.getPaused();
-        if (isPaused) {
-          rmp.play();
-        } else {
-          rmp.pause();
-        }
-        break;
-      default:
-        break;
-    }
+      }
+      break;
+    default:
+      break;
   }
 };
 

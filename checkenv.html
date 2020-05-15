@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<title>Smart TV Demo App - checkenv</title>
+	<meta name="robots" content="noindex">
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.8.2/js/rmp-three-xr.min.js"></script>
+	<style>
+		#rmpPlayer {
+			display: none !important;
+		}
+	</style>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+		integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+		crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<p>Go to <a href="index.html">home page</a></p>
+				<div><strong>Detected environment follows:</strong></div>
+				<div id="rmpPlayer"></div>
+				<div id="result"></div>
+			</div>
+		</div>
+	</div>
+	<script>
+		var rmp = new RadiantMP('rmpPlayer');
+		var result = document.getElementById('result');
+		var env = rmp.getEnvironment();
+		var ul = document.createElement('ul');
+		function addLI(textContent) {
+			var li = document.createElement('li');
+			li.textContent = textContent;
+			ul.appendChild(li);
+		}
+		ul.className = 'list-unstyled';
+		for (var prop in env) {
+			if (env.hasOwnProperty(prop)) {
+				var value = env[prop];
+				if (typeof value === 'function') {
+					continue;
+				} else if (typeof value === 'object') {
+					value = JSON.stringify(value);
+				}
+				addLI(prop + ': ' + value);
+			}
+		}
+		result.appendChild(ul);
+		var src = {
+			hls: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/playlist.m3u8'
+		};
+		var settings = {
+			licenseKey: 'your-license-key',
+			src: src,
+			requestAutoplayCapabilitiesData: true,
+			contentMetadata: {
+				poster: [
+					'https://www.radiantmediaplayer.com/images/poster-rmp-demo.jpg'
+				]
+			}
+		};
+		rmp.init(settings);
+		// getAutoplayMode
+		var rmpContainer = document.getElementById('rmpPlayer');
+		rmpContainer.addEventListener('autoplaymodedetected', function () {
+			addLI('getAutoplayMode: ' + rmp.getAutoplayMode());
+		});
+		// navigator.xr
+		if (typeof navigator.xr !== 'undefined' && typeof navigator.xr.isSessionSupported !== 'undefined') {
+			navigator.xr.isSessionSupported('immersive-vr').then((isSupported) => {
+				addLI('navigator.xr - isSessionSupported(\'immersive-vr\'): ' + isSupported);
+			}).catch((e) => {
+				addLI('navigator.xr - isSessionSupported(\'immersive-vr\'): catch error ' + JSON.stringify(e));
+			});
+			navigator.xr.isSessionSupported('immersive-ar').then((isSupported) => {
+				addLI('navigator.xr - isSessionSupported(\'immersive-ar\'): ' + isSupported);
+			}).catch((e) => {
+				addLI('navigator.xr - isSessionSupported(\'immersive-ar\'): catch error ' + JSON.stringify(e));
+			});
+			navigator.xr.isSessionSupported('inline').then((isSupported) => {
+				addLI('navigator.xr - isSessionSupported(\'inline\'): ' + isSupported);
+			}).catch((e) => {
+				addLI('navigator.xr - isSessionSupported(\'inline\'): catch error ' + JSON.stringify(e));
+			});
+		} else {
+			addLI('navigator.xr: no support');
+		}
+	</script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>
