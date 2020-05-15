@@ -14,9 +14,13 @@ For a list of supported features [see our documentation](https://www.radiantmedi
 ## Demo app structure
 The demo app is built with a landing page (index.html) that offers the possibility to start 4 different players showcasing various features available with Radiant Media Player for Samsung Smart TV:
 - mp4.html (MP4 progressive download streaming)
-- live.html (DASH live player)
-- drm.html (DASH DRM)
-- ads.html (DASH with video ads)
+- dash-ads.html (DASH VOD player with video ads)
+- dash-drm.html (DASH with Widevine DRM)
+- dash-live.html (DASH Live)
+- dash-vod.html (DASH VOD)
+- hls-live.html (HLS Live)
+- hls-vod.html (HLS VOD)
+- checkenv.html (use for troubleshooting)
 
 Players displayed use our dedicated TV player layout for a better fullscreen experience on large displays.
 
