@@ -4,13 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>Smart TV Demo App - DASH with video ads</title>
+	<title>DASH with video ads (rmp-vast)</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.9.0/js/rmp-vast.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
@@ -20,14 +20,10 @@
 			licenseKey: 'your-license-key',
 			src: src,
 			contentMetadata: {
-				title: 'Smart TV Demo App - DASH with video ads',
-			},
-			hideModule: {
-				quality: true
+				title: 'DASH with video ads (rmp-vast)',
 			},
 			autoplay: true,
 			ads: true,
-			adCountDown: true,
 			adParser: 'rmp-vast',
 			adTagUrl: 'https://www.radiantmediaplayer.com/vast/tags/inline-linear.xml',
 			skin: 'tv'

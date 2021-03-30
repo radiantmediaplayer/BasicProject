@@ -4,27 +4,24 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>Smart TV Demo App - HLS Live</title>
+	<title>DASH VOD HEVC</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.9.0/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			hls: 'https://5b44cf20b0388.streamlock.net:8443/live/ngrp:live_all/playlist.m3u8'
+			dash: 'https://dash.akamaized.net/dash264/TestCasesHEVC/1a/9/tos_ondemand_multirate_hvc.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
-			hideModule: {
-				quality: true
-			},
 			contentMetadata: {
-				title: 'Smart TV Demo App - HLS Live',
+				title: 'DASH VOD HEVC',
 			},
 			skin: 'tv'
 		};

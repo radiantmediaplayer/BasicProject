@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<title>DASH DRM - 8 Byte IV (Verizon - Widevine)</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta name="robots" content="noindex">
+</head>
+
+<body>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
+	<div id="rmpPlayer"></div>
+	<script>
+		let lastUplynkPrefix = '';
+		var shakaCustomResponseFilter = function (type, response) {
+			if (type == shaka.net.NetworkingEngine.RequestType.MANIFEST) {
+				// Parse a custom header that contains a value needed to build a proper
+				// license server URL.
+				if (response.headers['x-uplynk-prefix']) {
+					lastUplynkPrefix = response.headers['x-uplynk-prefix'];
+				} else {
+					lastUplynkPrefix = '';
+				}
+			}
+		};
+		var shakaCustomRequestFilter = function (type, request) {
+			if (type == shaka.net.NetworkingEngine.RequestType.LICENSE) {
+				// Modify the license request URL based on our cookie.
+				if (request.uris[0].includes('wv') && lastUplynkPrefix) {
+					request.uris[0] = lastUplynkPrefix.concat('/wv');
+				}
+			}
+		};
+		var src = {
+			dash: 'https://content.uplynk.com/847859273a4b4a81959d8fea181672a4.mpd?pr.version=2&pr.playenabler=B621D91F-EDCC-4035-8D4B-DC71760D43E9&pr.securitylevel=150'
+		};
+		var settings = {
+			licenseKey: 'your-license-key',
+			src: src,
+			autoplay: true,
+			shakaCustomRequestFilter: shakaCustomRequestFilter,
+			shakaCustomResponseFilter: shakaCustomResponseFilter,
+			contentMetadata: {
+				title: 'DASH DRM - 8 Byte IV (Verizon - Widevine)',
+			},
+			shakaDrm: {
+				servers: {
+					'com.widevine.alpha': 'https://content.uplynk.com/wv'
+				}
+			},
+			skin: 'tv'
+		};
+		var elementID = 'rmpPlayer';
+		window.rmp = new RadiantMP(elementID);
+		window.rmp.init(settings);
+	</script>
+	<script src="js/player.js"></script>
+</body>
+
+</html>

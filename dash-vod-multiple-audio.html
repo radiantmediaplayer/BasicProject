@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>HLS VOD AVC</title>
+	<title>DASH Multiple audio</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -14,14 +14,14 @@
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			hls: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/playlist.m3u8'
+			dash: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:hls-maudios-prod.smil/manifest.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
 			contentMetadata: {
-				title: 'HLS VOD AVC',
+				title: 'DASH Multiple audio',
 			},
 			skin: 'tv'
 		};
@@ -29,7 +29,7 @@
 		window.rmp = new RadiantMP(elementID);
 		window.rmp.init(settings);
 	</script>
-	<script src="js/player.js"></script>
+	<script src="js/player-maudio.js"></script>
 </body>
 
 </html>

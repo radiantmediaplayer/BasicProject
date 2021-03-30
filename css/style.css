@@ -1,17 +1,44 @@
 body {
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
 }
 
 .rmp-button.rmp-button-hover {
-    color: #ff1744;
+  color: #ff1744;
+}
+
+.rmp-overlay-level.rmp-button-hover {
+  border-color: #ff1744;
+}
+
+.rmp-tv-player.rmp-module-open-ui .rmp-control-bar {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.rmp-tv-player.rmp-module-open-ui .rmp-handle {
+  z-index: auto;
+}
+
+.rmp-tv-player .rmp-module-overlay-icons.rmp-module-overlay-play-pause {
+  display: none !important;
 }
 
 .rmp-tv-player.rmp-live .rmp-i-quick-forward-tv,
 .rmp-tv-player.rmp-live .rmp-i-quick-rewind-tv {
-  display: none;
+  display: none !important;
 }
 
 .rmp-tv-player .rmp-title,
 .rmp-tv-player .rmp-description {
   max-width: 50%;
+}
+
+#demo-list a {
+  transition: all 0.4s ease-out;
+}
+
+#demo-list a:focus {
+  background: #007bff;
+  color: #fff;
 }

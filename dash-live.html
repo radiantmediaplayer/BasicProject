@@ -4,13 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>Smart TV Demo App - Live DASH</title>
+	<title>Live DASH</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.9.0/js/rmp-shaka.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
@@ -20,11 +20,8 @@
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
-			hideModule: {
-				quality: true
-			},
 			contentMetadata: {
-				title: 'Smart TV Demo App - Live DASH',
+				title: 'Live DASH',
 			},
 			skin: 'tv'
 		};
@@ -32,7 +29,7 @@
 		window.rmp = new RadiantMP(elementID);
 		window.rmp.init(settings);
 	</script>
-	<script src="js/player.js"></script>
+	<script src="js/player-live.js"></script>
 </body>
 
 </html>

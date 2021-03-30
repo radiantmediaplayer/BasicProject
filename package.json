@@ -1,6 +1,6 @@
 {
   "name": "basicproject",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "author": "Radiant Media Player <support@radiantmediaplayer.com>",
   "description": "Example for using Radiant Media Player in a web-based Tizen TV app (Samsung smart TV).",
   "repository": {

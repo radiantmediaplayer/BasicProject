@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>HLS VOD AVC</title>
+	<title>DASH Widevine Big Buck Bunny (Azure)</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -14,14 +14,19 @@
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			hls: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/playlist.m3u8'
+			dash: 'https://amssamples.streaming.mediaservices.windows.net/622b189f-ec39-43f2-93a2-201ac4e31ce1/BigBuckBunny.ism/manifest(format=mpd-time-csf)'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
 			contentMetadata: {
-				title: 'HLS VOD AVC',
+				title: 'DASH Widevine Big Buck Bunny (Azure)',
+			},
+			shakaDrm: {
+				servers: {
+					'com.widevine.alpha': 'https://amssamples.keydelivery.mediaservices.windows.net/Widevine/?KID=1ab45440-532c-4399-94dc-5c5ad9584bac'
+				}
 			},
 			skin: 'tv'
 		};

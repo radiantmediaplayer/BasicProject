@@ -7,10 +7,7 @@
   <meta name="description"
     content="Example for using Radiant Media Player in a web-based Tizen TV app (Samsung smart TV)">
   <title>Samsung Smart TV application (Tizen TV) - Radiant Media Player</title>
-  <link rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <meta name="robots" content="noindex">
@@ -18,32 +15,32 @@
 
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
+    <div class="row mt-5">
+      <div class="col">
         <h1>Radiant Media Player</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col">
         <img src="images/tizen_32.png" width="32" alt="Radiant Media Player icon"> <strong>Samsung
           Tizen TV Demo App</strong>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col">
         <h3>Select a player</h3>
-        <ul>
+        <ul id="demo-list">
           <li><a href="mp4.html">MP4 VOD player</a></li>
-          <li><a href="dash-vod.html">DASH VOD player</a></li>
-          <li><a href="dash-live.html">DASH live player</a></li>
-          <li><a href="dash-drm.html">DASH DRM</a></li>
-          <li><a href="dash-ads.html">DASH with video ads</a></li>
+          <li><a href="dash-vod.html">DASH VOD AVC</a></li>
+          <li><a href="dash-vod-multiple-audio.html">DASH Multiple audio</a></li>
+          <li><a href="dash-vod-hevc.html">DASH VOD HEVC</a></li>
+          <li><a href="dash-live.html">DASH LIVE AVC</a></li>
+          <li><a href="dash-drm-3.html">DASH DRM Angel One no_auth (Google - Widevine)</a></li>
+          <li><a href="dash-drm-4.html">DASH DRM - 8 Byte IV (Verizon - Widevine)</a></li>
+          <li><a href="dash-drm-6.html">DASH DRM Big Buck Bunny (Azure - Widevine)</a></li>
+          <li><a href="dash-rmp-vast-ads.html">DASH with video ads (rmp-vast)</a></li>
           <li><a href="hls-vod.html">HLS VOD player</a></li>
-          <li><a href="hls-live.html">HLS live player</a></li>
-        </ul>
-        <h3>Environment API</h3>
-        <ul>
-          <li><a href="checkenv.html">checkenv</a></li>
+          <li><a href="checkenv.html">Environment API (rmp)</a></li>
         </ul>
       </div>
     </div>

@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" 
-    xmlns:tizen="http://tizen.org/ns/widgets" id="https://github.com/radiantmediaplayer/BasicProject" version="1.0.3" viewmodes="maximized">
-    <tizen:application id="DLhcD7D3fR.BasicProject" package="DLhcD7D3fR" required_version="2.3"/>
+<widget xmlns:tizen="http://tizen.org/ns/widgets"
+    xmlns="http://www.w3.org/ns/widgets" id="https://github.com/radiantmediaplayer/BasicProject" version="2.0.0" viewmodes="maximized">
+    <tizen:application id="QOH6JadEWd.BasicProject" package="QOH6JadEWd" required_version="3.0"/>
     <content src="index.html"/>
-    <tizen:content-security-policy>script-src *</tizen:content-security-policy>
+    <tizen:allow-navigation>*</tizen:allow-navigation>
+    <tizen:content-security-policy>default-src *; script-src *; style-src *; object-src 'none';</tizen:content-security-policy>
     <feature name="http://tizen.org/feature/screen.size.normal.1080.1920"/>
-    <icon src="icon.png"/>
+    <icon src="tizen_144.png"/>
     <name>BasicProject</name>
+    <tizen:privilege name="http://tizen.org/privilege/system"/>
     <tizen:privilege name="http://developer.samsung.com/privilege/drmplay"/>
-    <tizen:privilege name="http://tizen.org/privilege/drmplay"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/avplay"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/network.public"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/productinfo"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
     <tizen:privilege name="http://tizen.org/privilege/content.write"/>
     <tizen:privilege name="http://tizen.org/privilege/content.read"/>
-    <tizen:privilege name="http://tizen.org/privilege/tv.audio"/>
-    <tizen:privilege name="http://tizen.org/privilege/tv.channel"/>
-    <tizen:privilege name="http://tizen.org/privilege/tv.display"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
+    <tizen:privilege name="http://tizen.org/privilege/download"/>
     <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
     <tizen:privilege name="http://tizen.org/privilege/tv.window"/>
+    <tizen:privilege name="http://tizen.org/privilege/unlimitedstorage"/>
+    <tizen:privilege name="http://tizen.org/privilege/fullscreen"/>
     <tizen:profile name="tv-samsung"/>
     <tizen:setting screen-orientation="landscape" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
 </widget>

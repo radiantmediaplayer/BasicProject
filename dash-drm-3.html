@@ -4,38 +4,32 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>Smart TV Demo App - DASH Widevine DRM</title>
+	<title>DASH DRM Angel One no_auth (Widevine)</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.9.0/js/rmp-shaka.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			dash: 'https://storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd'
+			dash: 'https://storage.googleapis.com/shaka-demo-assets/angel-one-widevine/dash.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
 			contentMetadata: {
-				title: 'Smart TV Demo App - DASH Widevine DRM',
+				title: 'DASH DRM Angel One no_auth (Widevine)',
 			},
 			hideModule: {
-				quality: true
+				audio: true,
+				captions: true
 			},
 			shakaDrm: {
 				servers: {
-					'com.widevine.alpha': 'https://cwip-shaka-proxy.appspot.com/header_auth'
-				}
-			},
-			shakaRequestConfiguration: {
-				license: {
-					headers: {
-						'CWIP-Auth-Header': 'VGhpc0lzQVRlc3QK'
-					}
+					'com.widevine.alpha': 'https://cwip-shaka-proxy.appspot.com/no_auth'
 				}
 			},
 			skin: 'tv'

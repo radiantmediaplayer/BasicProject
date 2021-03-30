@@ -1,11 +1,7 @@
-/* 0 == quickRewind button, 
-1 == playPause button, 
-2 == quickForward button
+/* 0 == playPause button
 */
 var playerButtons = [
-  { id: 0, name: 'quickRewind', element: null },
-  { id: 1, name: 'playPause', element: null },
-  { id: 2, name: 'quickForward', element: null }
+  { id: 0, name: 'playPause', element: null }
 ];
 
 var container = document.getElementById('rmpPlayer');
@@ -125,15 +121,11 @@ const _registerKey = function () {
 // when player is ready we wire the UI
 container.addEventListener('ready', function () {
   rmp = window.rmp;
-  playerButtons[0].element = container.querySelector('.rmp-i-quick-rewind-tv');
+  playerButtons[0].element = container.querySelector('.rmp-play-pause');
   playerButtons[0].element.setAttribute('data-button-id', '0');
-  playerButtons[1].element = container.querySelector('.rmp-play-pause');
-  playerButtons[1].element.setAttribute('data-button-id', '1');
-  playerButtons[2].element = container.querySelector('.rmp-i-quick-forward-tv');
-  playerButtons[2].element.setAttribute('data-button-id', '2');
   rmpFW = rmp.getFramework();
   _registerKey();
   document.body.addEventListener('keydown', _onKeyDown);
-  _setActiveButton(1);
+  _setActiveButton(0);
   currentActiveButton = container.querySelector('.rmp-button-hover');
 });
