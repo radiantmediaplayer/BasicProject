@@ -1,31 +1,49 @@
-/* 0 == quickRewind button, 
-1 == playPause button, 
-2 == quickForward button
-3 == audio module button
-4 == audio module close button
-*/
+/* 
+ * 0 == fastRewind button 
+ * 1 == quickRewind button 
+ * 2 == playPause button
+ * 3 == quickForward button 
+ * 4 == fastForward button
+ * 5 == audio module button
+ * 6 == audio module close button
+ */
+
 var playerButtons = [
-  { id: 0, name: 'quickRewind', element: null },
-  { id: 1, name: 'playPause', element: null },
-  { id: 2, name: 'quickForward', element: null },
-  { id: 3, name: 'audio', element: null },
-  { id: 4, name: 'audioModuleClose', element: null }
+  { id: 0, name: 'fastRewind', element: null },
+  { id: 1, name: 'quickRewind', element: null },
+  { id: 2, name: 'playPause', element: null },
+  { id: 3, name: 'quickForward', element: null },
+  { id: 4, name: 'fastForward', element: null },
+  { id: 5, name: 'audio', element: null },
+  { id: 6, name: 'audioModuleClose', element: null }
 ];
 
 var container = document.getElementById('rmpPlayer');
-var currentActiveButtonId, rmpFW, rmp, isPaused;
+var currentActiveButtonId, rmp, isPaused;
 var currentActiveButton;
+
+var _createEvent = function (eventName, element) {
+  var event;
+  if (element) {
+    try {
+      event = new Event(eventName);
+      element.dispatchEvent(event);
+    } catch (e) {
+      console.trace(e);
+    }
+  }
+};
 
 // handle requests from TV remote
 var _removeHoverClass = function () {
   for (var i = 0, len = playerButtons.length; i < len; i++) {
-    rmpFW.removeClass(playerButtons[i].element, 'rmp-button-hover');
+    playerButtons[i].element.classList.remove('rmp-button-hover');
   }
 };
 
 var _setActiveButton = function (id) {
   currentActiveButtonId = id;
-  rmpFW.addClass(playerButtons[id].element, 'rmp-button-hover');
+  playerButtons[id].element.classList.add('rmp-button-hover');
 };
 
 var moduleVisible = false;
@@ -75,7 +93,7 @@ var _handleButtons = function (keyCode) {
 
 var _triggerButton = function () {
   currentActiveButton = container.querySelector('.rmp-button-hover');
-  rmpFW.createStdEvent('click', currentActiveButton);
+  _createEvent('click', currentActiveButton);
 };
 
 // when TV remote buttons are pressed do something
@@ -128,9 +146,9 @@ var _onKeyDown = function (e) {
 };
 
 // register additional keys as per https://developer.samsung.com/smarttv/develop/guides/user-interaction/remote-control.html
-const _registerKey = function () {
+var _registerKey = function () {
   try {
-    const value = tizen.tvinputdevice.getSupportedKeys();
+    var value = tizen.tvinputdevice.getSupportedKeys();
     window.console.log(value);
     tizen.tvinputdevice.registerKeyBatch([
       'MediaPlayPause',
@@ -148,32 +166,35 @@ const _registerKey = function () {
 // when player is ready we wire the UI
 container.addEventListener('ready', function () {
   rmp = window.rmp;
-  playerButtons[0].element = container.querySelector('.rmp-i-quick-rewind-tv');
+  playerButtons[0].element = container.querySelector('.rmp-i-fast-rewind');
   playerButtons[0].element.setAttribute('data-button-id', '0');
-  playerButtons[1].element = container.querySelector('.rmp-play-pause');
+  playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');
   playerButtons[1].element.setAttribute('data-button-id', '1');
-  playerButtons[2].element = container.querySelector('.rmp-i-quick-forward-tv');
+  playerButtons[2].element = container.querySelector('.rmp-play-pause');
   playerButtons[2].element.setAttribute('data-button-id', '2');
-  rmpFW = rmp.getFramework();
+  playerButtons[3].element = container.querySelector('.rmp-i-quick-forward-tv');
+  playerButtons[3].element.setAttribute('data-button-id', '3');
+  playerButtons[4].element = container.querySelector('.rmp-i-fast-forward');
+  playerButtons[4].element.setAttribute('data-button-id', '4');
   _registerKey();
   document.body.addEventListener('keydown', _onKeyDown);
-  _setActiveButton(1);
+  _setActiveButton(2);
   currentActiveButton = container.querySelector('.rmp-button-hover');
 });
 
 // audio tracks module is available
 container.addEventListener('shakatrackschanged', function () {
-  playerButtons[3].element = container.querySelector('.rmp-audio');
-  playerButtons[3].element.setAttribute('data-button-id', '3');
-  playerButtons[4].element = container.querySelector('.rmp-module-overlay-icons.rmp-module-overlay-close');
-  playerButtons[4].element.setAttribute('data-button-id', '4');
+  playerButtons[5].element = container.querySelector('.rmp-audio');
+  playerButtons[5].element.setAttribute('data-button-id', '5');
+  playerButtons[6].element = container.querySelector('.rmp-module-overlay-icons.rmp-module-overlay-close');
+  playerButtons[6].element.setAttribute('data-button-id', '6');
   var audioTracks = container.querySelectorAll('.rmp-overlay-levels-area > .rmp-button.rmp-overlay-level');
   if (audioTracks.length > 0) {
-    for (let i = 0, len = audioTracks.length; i < len; i++) {
-      const id = 4 + i + 1;
-      const button = audioTracks[i];
+    for (var i = 0, len = audioTracks.length; i < len; i++) {
+      var id = 6 + i + 1;
+      var button = audioTracks[i];
       button.setAttribute('data-button-id', '' + id + '');
-      const lng = button.getAttribute('aria-label');
+      var lng = button.getAttribute('aria-label');
       playerButtons.push(
         { id: id, name: lng, element: button }
       );

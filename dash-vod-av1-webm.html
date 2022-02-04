@@ -4,29 +4,25 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>MP4 progressive download</title>
+	<title>DASH VOD AVC</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/7.4.0/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			mp4: [
-				'https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4'
-			]
+			dash: 'https://www.radiantmediaplayer.com/media/dash/4k-av1/manifest.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
+			delayToFade: 5000,
 			autoplay: true,
 			contentMetadata: {
-				title: 'MP4 progressive download',
-			},
-			hideModule: {
-				quality: true
+				title: 'DASH VOD AV1 (WebM container)',
 			},
 			skin: 'tv'
 		};

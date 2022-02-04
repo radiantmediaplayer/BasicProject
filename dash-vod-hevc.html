@@ -10,16 +10,17 @@
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/7.4.0/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			dash: 'https://dash.akamaized.net/dash264/TestCasesHEVC/1a/9/tos_ondemand_multirate_hvc.mpd'
+			dash: 'https://www.radiantmediaplayer.com/media/dash/4k-hevc-aac/manifest.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
+			delayToFade: 5000,
 			contentMetadata: {
 				title: 'DASH VOD HEVC',
 			},

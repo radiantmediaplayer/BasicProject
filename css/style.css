@@ -24,6 +24,13 @@ body {
   display: none !important;
 }
 
+/* hide rewind/forward icons with live and when ads are on */
+.rmp-tv-player.rmp-linear-ad-ui .rmp-i-fast-forward,
+.rmp-tv-player.rmp-linear-ad-ui .rmp-i-fast-rewind,
+.rmp-tv-player.rmp-linear-ad-ui .rmp-i-quick-forward-tv,
+.rmp-tv-player.rmp-linear-ad-ui .rmp-i-quick-rewind-tv,
+.rmp-tv-player.rmp-live .rmp-i-fast-forward,
+.rmp-tv-player.rmp-live .rmp-i-fast-rewind,
 .rmp-tv-player.rmp-live .rmp-i-quick-forward-tv,
 .rmp-tv-player.rmp-live .rmp-i-quick-rewind-tv {
   display: none !important;

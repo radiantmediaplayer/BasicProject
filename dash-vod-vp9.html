@@ -4,24 +4,25 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>HLS VOD AVC</title>
+	<title>DASH VOD AVC</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="robots" content="noindex">
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/5.12.4/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/7.4.0/js/rmp.min.js"></script>
 	<div id="rmpPlayer"></div>
 	<script>
 		var src = {
-			hls: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/playlist.m3u8'
+			dash: 'https://www.radiantmediaplayer.com/media/dash/4k-vp9-opus-webm-quality-watermark/manifest.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
+			delayToFade: 5000,
 			contentMetadata: {
-				title: 'HLS VOD AVC',
+				title: 'DASH VOD VP9',
 			},
 			skin: 'tv'
 		};
