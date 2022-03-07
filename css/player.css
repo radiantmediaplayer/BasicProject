@@ -1,7 +1,6 @@
-body {
-  font-family: "PT Sans", sans-serif;
-}
-
+/* 
+ * CSS for fine-tuning Radiant Media Player TV skin 
+ */
 .rmp-button.rmp-button-hover {
   color: #ff1744;
 }
@@ -10,6 +9,11 @@ body {
   border-color: #ff1744;
 }
 
+/* 
+ * When a module is open: keep the control bar visible to 
+ * allow remote control navigation on control bar buttons 
+ * also hide the play/pause button on top right corner
+ */
 .rmp-tv-player.rmp-module-open-ui .rmp-control-bar {
   display: block !important;
   opacity: 1 !important;
@@ -24,7 +28,7 @@ body {
   display: none !important;
 }
 
-/* hide rewind/forward icons with live and when ads are on */
+/* hide rewind/forward icons with live and ads */
 .rmp-tv-player.rmp-linear-ad-ui .rmp-i-fast-forward,
 .rmp-tv-player.rmp-linear-ad-ui .rmp-i-fast-rewind,
 .rmp-tv-player.rmp-linear-ad-ui .rmp-i-quick-forward-tv,
@@ -36,16 +40,8 @@ body {
   display: none !important;
 }
 
+/* cap title/description size */
 .rmp-tv-player .rmp-title,
 .rmp-tv-player .rmp-description {
   max-width: 50%;
-}
-
-#demo-list a {
-  transition: all 0.4s ease-out;
-}
-
-#demo-list a:focus {
-  background: #007bff;
-  color: #fff;
 }

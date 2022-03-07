@@ -1,0 +1,12 @@
+body {
+  font-family: "PT Sans", sans-serif;
+}
+
+#demo-list a {
+  transition: all 0.4s ease-out;
+}
+
+#demo-list a:focus {
+  background: #007bff;
+  color: #fff;
+}
