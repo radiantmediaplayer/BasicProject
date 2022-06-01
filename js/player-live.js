@@ -4,8 +4,8 @@ var playerButtons = [
   { id: 0, name: 'playPause', element: null }
 ];
 
-var container = document.getElementById('rmpPlayer');
-var currentActiveButtonId, rmp, isPaused;
+var container = document.getElementById('rmp');
+var currentActiveButtonId, isPaused;
 var currentActiveButton;
 
 var _createEvent = function (eventName, element) {
@@ -66,28 +66,28 @@ var _triggerButton = function () {
 // we deal with 2 kind of remote: Basic Device, Smart Control 2016
 
 var _onKeyDown = function (e) {
-  var currentTime = rmp.getCurrentTime();
+  var currentTime = window.rmp.getCurrentTime();
   var keyCode = e.keyCode;
   window.console.log('Key code called : ' + keyCode);
-  rmp.setControlsVisible(true);
+  window.rmp.setControlsVisible(true);
   switch (keyCode) {
     case 412: // MediaRewind 
-      rmp.seekTo(currentTime - 10000);
+      window.rmp.seekTo(currentTime - 10000);
       break;
     case 417: // MediaFastForward 
-      rmp.seekTo(currentTime + 10000);
+      window.rmp.seekTo(currentTime + 10000);
       break;
     case 10009: // Back
       window.location.replace('index.html');
       break;
     case 415: // MediaPlay
-      rmp.play();
+      window.rmp.play();
       break;
     case 19: // MediaPause
-      rmp.pause();
+      window.rmp.pause();
       break;
     case 413: // MediaStop
-      rmp.stop();
+      window.rmp.stop();
       break;
     case 37: // ArrowLeft
     case 38: // ArrowUp
@@ -99,11 +99,11 @@ var _onKeyDown = function (e) {
       _triggerButton();
       break;
     case 10252: // MediaPlayPause
-      isPaused = rmp.getPaused();
+      isPaused = window.rmp.getPaused();
       if (isPaused) {
-        rmp.play();
+        window.rmp.play();
       } else {
-        rmp.pause();
+        window.rmp.pause();
       }
       break;
     default:
@@ -131,7 +131,6 @@ var _registerKey = function () {
 
 // when player is ready we wire the UI
 container.addEventListener('ready', function () {
-  rmp = window.rmp;
   playerButtons[0].element = container.querySelector('.rmp-play-pause');
   playerButtons[0].element.setAttribute('data-button-id', '0');
   _registerKey();

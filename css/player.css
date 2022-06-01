@@ -9,6 +9,10 @@
   border-color: #ff1744;
 }
 
+.rmp-button-hover > .rmp-time-elapsed-text {
+  border: 4px solid #fff;
+}
+
 /* 
  * When a module is open: keep the control bar visible to 
  * allow remote control navigation on control bar buttons 
@@ -44,4 +48,8 @@
 .rmp-tv-player .rmp-title,
 .rmp-tv-player .rmp-description {
   max-width: 50%;
+}
+
+.rmp-module-fcc-settings {
+  display: none !important;
 }

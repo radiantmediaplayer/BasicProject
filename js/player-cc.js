@@ -4,6 +4,8 @@
  * 2 == playPause button
  * 3 == quickForward button 
  * 4 == fastForward button
+ * 5 == captions module button
+ * 6 == captions module close button
  */
 
 var playerButtons = [
@@ -11,7 +13,9 @@ var playerButtons = [
   { id: 1, name: 'quickRewind', element: null },
   { id: 2, name: 'playPause', element: null },
   { id: 3, name: 'quickForward', element: null },
-  { id: 4, name: 'fastForward', element: null }
+  { id: 4, name: 'fastForward', element: null },
+  { id: 5, name: 'captions', element: null },
+  { id: 6, name: 'captionsModuleClose', element: null }
 ];
 
 var container = document.getElementById('rmp');
@@ -42,8 +46,10 @@ var _setActiveButton = function (id) {
   playerButtons[id].element.classList.add('rmp-button-hover');
 };
 
+var moduleVisible = false;
 var _handleButtons = function (keyCode) {
   currentActiveButton = container.querySelector('.rmp-button-hover');
+  moduleVisible = window.rmp.getModuleOverlayVisible('captions');
   _removeHoverClass();
   var newId;
   switch (keyCode) {
@@ -54,6 +60,15 @@ var _handleButtons = function (keyCode) {
       } else {
         newId = 0;
       }
+      if (!moduleVisible) {
+        if (newId > 5) {
+          newId = 0;
+        }
+      } else {
+        if (newId === 5) {
+          newId = 6;
+        }
+      }
       break;
     case 37: // ArrowLeft
     case 40: // ArrowDown
@@ -61,6 +76,15 @@ var _handleButtons = function (keyCode) {
         newId = currentActiveButtonId - 1;
       } else {
         newId = playerButtons.length - 1;
+      }
+      if (!moduleVisible) {
+        if (newId > 5) {
+          newId = 5;
+        }
+      } else {
+        if (newId === 5) {
+          newId = 4;
+        }
       }
       break;
   }
@@ -155,4 +179,24 @@ container.addEventListener('ready', function () {
   document.body.addEventListener('keydown', _onKeyDown);
   _setActiveButton(2);
   currentActiveButton = container.querySelector('.rmp-button-hover');
+});
+
+// captions tracks module is available
+container.addEventListener('shakatrackschanged', function () {
+  playerButtons[5].element = container.querySelector('.rmp-captions');
+  playerButtons[5].element.setAttribute('data-button-id', '5');
+  playerButtons[6].element = container.querySelector('.rmp-module-overlay-icons.rmp-module-overlay-close');
+  playerButtons[6].element.setAttribute('data-button-id', '6');
+  var audioTracks = container.querySelectorAll('.rmp-overlay-levels-area > .rmp-button.rmp-overlay-level');
+  if (audioTracks.length > 0) {
+    for (var i = 0, len = audioTracks.length; i < len; i++) {
+      var id = 6 + i + 1;
+      var button = audioTracks[i];
+      button.setAttribute('data-button-id', '' + id + '');
+      var lng = button.getAttribute('aria-label');
+      playerButtons.push(
+        { id: id, name: lng, element: button }
+      );
+    }
+  }
 });

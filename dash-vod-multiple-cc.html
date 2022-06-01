@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>DASH Multiple audio</title>
+	<title>DASH Multiple CC</title>
 	<link rel="stylesheet" type="text/css" href="css/player.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -12,16 +12,22 @@
 <body>
 	<div id="rmp"></div>
 	<script>
+		const ccFiles = [
+			['en', 'English', 'https://www.radiantmediaplayer.com/media/vtt/captions/cc.vtt'],
+			['fr', 'Français', 'https://www.radiantmediaplayer.com/media/vtt/captions/cc-fr.vtt']
+		];
 		var src = {
-			dash: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:hls-maudios-prod.smil/manifest.mpd'
+			dash: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/manifest.mpd'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
+			ccFiles: ccFiles,
 			delayToFade: 5000,
+			ccFontSize: 2,
 			contentMetadata: {
-				title: 'DASH Multiple audio',
+				title: 'DASH Multiple CC',
 			},
 			skin: 'tv'
 		};
@@ -48,7 +54,7 @@
 		rmpScript.addEventListener('error', _onErrorLog);
 		document.head.appendChild(rmpScript);
 	</script>
-	<script src="js/player-maudio.js"></script>
+	<script src="js/player-cc.js"></script>
 </body>
 
 </html>

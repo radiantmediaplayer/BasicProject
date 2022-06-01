@@ -1,22 +1,23 @@
 /* 
- * 0 == fastRewind button 
- * 1 == quickRewind button 
- * 2 == playPause button
- * 3 == quickForward button 
- * 4 == fastForward button
+ * 0 == DVR button
+ * 1 == fastRewind button 
+ * 2 == quickRewind button 
+ * 3 == playPause button
+ * 4 == quickForward button 
+ * 5 == fastForward button
  */
 
 var playerButtons = [
-  { id: 0, name: 'fastRewind', element: null },
-  { id: 1, name: 'quickRewind', element: null },
-  { id: 2, name: 'playPause', element: null },
-  { id: 3, name: 'quickForward', element: null },
-  { id: 4, name: 'fastForward', element: null }
+  { id: 0, name: 'dvr', element: null },
+  { id: 1, name: 'fastRewind', element: null },
+  { id: 2, name: 'quickRewind', element: null },
+  { id: 3, name: 'playPause', element: null },
+  { id: 4, name: 'quickForward', element: null },
+  { id: 5, name: 'fastForward', element: null }
 ];
 
 var container = document.getElementById('rmp');
-var currentActiveButtonId, isPaused;
-var currentActiveButton;
+var currentActiveButtonId, isPaused, currentActiveButton;
 
 var _createEvent = function (eventName, element) {
   var event;
@@ -141,18 +142,20 @@ var _registerKey = function () {
 
 // when player is ready we wire the UI
 container.addEventListener('ready', function () {
-  playerButtons[0].element = container.querySelector('.rmp-i-fast-rewind');
+  playerButtons[0].element = container.querySelector('.rmp-time-elapsed');
   playerButtons[0].element.setAttribute('data-button-id', '0');
-  playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');
+  playerButtons[1].element = container.querySelector('.rmp-i-fast-rewind');
   playerButtons[1].element.setAttribute('data-button-id', '1');
-  playerButtons[2].element = container.querySelector('.rmp-play-pause');
+  playerButtons[2].element = container.querySelector('.rmp-i-quick-rewind-tv');
   playerButtons[2].element.setAttribute('data-button-id', '2');
-  playerButtons[3].element = container.querySelector('.rmp-i-quick-forward-tv');
+  playerButtons[3].element = container.querySelector('.rmp-play-pause');
   playerButtons[3].element.setAttribute('data-button-id', '3');
-  playerButtons[4].element = container.querySelector('.rmp-i-fast-forward');
+  playerButtons[4].element = container.querySelector('.rmp-i-quick-forward-tv');
   playerButtons[4].element.setAttribute('data-button-id', '4');
+  playerButtons[5].element = container.querySelector('.rmp-i-fast-forward');
+  playerButtons[5].element.setAttribute('data-button-id', '5');
   _registerKey();
   document.body.addEventListener('keydown', _onKeyDown);
-  _setActiveButton(2);
+  _setActiveButton(3);
   currentActiveButton = container.querySelector('.rmp-button-hover');
 });

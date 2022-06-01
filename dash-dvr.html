@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>DASH Multiple audio</title>
+	<title>DASH DVR</title>
 	<link rel="stylesheet" type="text/css" href="css/player.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -13,16 +13,16 @@
 	<div id="rmp"></div>
 	<script>
 		var src = {
-			dash: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:hls-maudios-prod.smil/manifest.mpd'
+			dash: 'https://5b44cf20b0388.streamlock.net:8443/dvr/dvr/manifest.mpd?DVR'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
 			src: src,
+			contentMetadata: {
+				title: 'DASH DVR'
+			},
 			autoplay: true,
 			delayToFade: 5000,
-			contentMetadata: {
-				title: 'DASH Multiple audio',
-			},
 			skin: 'tv'
 		};
 
@@ -47,8 +47,9 @@
 		rmpScript.addEventListener('load', _onLoadAppendPlayer);
 		rmpScript.addEventListener('error', _onErrorLog);
 		document.head.appendChild(rmpScript);
+
 	</script>
-	<script src="js/player-maudio.js"></script>
+	<script src="js/player-dvr.js"></script>
 </body>
 
 </html>
