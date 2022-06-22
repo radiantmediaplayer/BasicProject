@@ -25,7 +25,7 @@
 			delayToFade: 5000,
 			ads: true,
 			adParser: 'rmp-vast',
-			adTagUrl: 'https://www.radiantmediaplayer.com/vast/tags/inline-linear-skippable.xml',
+			adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now(),
 			skin: 'tv'
 		};
 
@@ -42,8 +42,10 @@
 		// Feature detection for newer browsers that support module import/export
 		var newerBrowsers = 'noModule' in HTMLScriptElement.prototype;
 		if (newerBrowsers) {
-			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/7.8.2/js/rmp.min.js';
+			// Tizen 5+
+			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/7.9.1/js/rmp.min.js';
 		} else {
+			// Tizen 3 & 4
 			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/0.1.0/js/rmp.min.js';
 		}
 		rmpScript.async = true;
@@ -52,7 +54,7 @@
 		document.head.appendChild(rmpScript);
 
 	</script>
-	<script src="js/player.js"></script>
+	<script src="js/player-skippable-ads.js"></script>
 </body>
 
 </html>

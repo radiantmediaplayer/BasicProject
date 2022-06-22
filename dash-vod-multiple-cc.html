@@ -25,7 +25,7 @@
 			autoplay: true,
 			ccFiles: ccFiles,
 			delayToFade: 5000,
-			ccFontSize: 2,
+			ccFontSize: 3,
 			contentMetadata: {
 				title: 'DASH Multiple CC',
 			},
@@ -45,8 +45,10 @@
 		// Feature detection for newer browsers that support module import/export
 		var newerBrowsers = 'noModule' in HTMLScriptElement.prototype;
 		if (newerBrowsers) {
-			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/7.8.2/js/rmp.min.js';
+			// Tizen 5+
+			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/7.9.1/js/rmp.min.js';
 		} else {
+			// Tizen 3 & 4 
 			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/0.1.0/js/rmp.min.js';
 		}
 		rmpScript.async = true;

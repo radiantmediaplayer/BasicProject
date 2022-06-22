@@ -182,7 +182,7 @@ container.addEventListener('ready', function () {
 });
 
 // captions tracks module is available
-container.addEventListener('shakatrackschanged', function () {
+container.addEventListener('alltexttracksloaded', function () {
   playerButtons[5].element = container.querySelector('.rmp-captions');
   playerButtons[5].element.setAttribute('data-button-id', '5');
   playerButtons[6].element = container.querySelector('.rmp-module-overlay-icons.rmp-module-overlay-close');

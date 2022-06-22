@@ -4,6 +4,7 @@
  * 2 == playPause button
  * 3 == quickForward button 
  * 4 == fastForward button
+ * 5 == skip ad button
  */
 
 var playerButtons = [
@@ -12,6 +13,19 @@ var playerButtons = [
   { id: 2, name: 'playPause', element: null },
   { id: 3, name: 'quickForward', element: null },
   { id: 4, name: 'fastForward', element: null }
+];
+
+var playerButtonsForContent = [
+  { id: 0, name: 'fastRewind', element: null },
+  { id: 1, name: 'quickRewind', element: null },
+  { id: 2, name: 'playPause', element: null },
+  { id: 3, name: 'quickForward', element: null },
+  { id: 4, name: 'fastForward', element: null }
+];
+
+var playerButtonsForAds = [
+  { id: 0, name: 'playPause', element: null },
+  { id: 1, name: 'skipAd', element: null }
 ];
 
 var container = document.getElementById('rmp');
@@ -43,6 +57,7 @@ var _setActiveButton = function (id) {
 };
 
 var _handleButtons = function (keyCode) {
+  currentActiveButton = container.querySelector('.rmp-button-hover');
   _removeHoverClass();
   var newId;
   switch (keyCode) {
@@ -63,6 +78,7 @@ var _handleButtons = function (keyCode) {
       }
       break;
   }
+  console.log(newId);
   _setActiveButton(newId);
 };
 
@@ -153,4 +169,30 @@ container.addEventListener('ready', function () {
   _registerKey();
   document.body.addEventListener('keydown', _onKeyDown);
   _setActiveButton(2);
+  currentActiveButton = container.querySelector('.rmp-button-hover');
 });
+
+container.addEventListener('adstarted', function () {
+  playerButtons = playerButtonsForAds;
+  playerButtons[0].element = container.querySelector('.rmp-play-pause');
+  playerButtons[0].element.setAttribute('data-button-id', '0');
+  playerButtons[1].element = container.querySelector('.rmp-ad-container-skip');
+  playerButtons[1].element.setAttribute('data-button-id', '1');
+  _setActiveButton(0);
+});
+
+container.addEventListener('addestroyed', function () {
+  playerButtons = playerButtonsForContent;
+  playerButtons[0].element = container.querySelector('.rmp-i-fast-rewind');
+  playerButtons[0].element.setAttribute('data-button-id', '0');
+  playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');
+  playerButtons[1].element.setAttribute('data-button-id', '1');
+  playerButtons[2].element = container.querySelector('.rmp-play-pause');
+  playerButtons[2].element.setAttribute('data-button-id', '2');
+  playerButtons[3].element = container.querySelector('.rmp-i-quick-forward-tv');
+  playerButtons[3].element.setAttribute('data-button-id', '3');
+  playerButtons[4].element = container.querySelector('.rmp-i-fast-forward');
+  playerButtons[4].element.setAttribute('data-button-id', '4');
+  _setActiveButton(2);
+});
+

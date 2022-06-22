@@ -9,6 +9,10 @@
   border-color: #ff1744;
 }
 
+.rmp-ad-container-skip.rmp-button-hover {
+  border: 2px solid #ff1744;
+}
+
 .rmp-button-hover > .rmp-time-elapsed-text {
   border: 4px solid #fff;
 }
