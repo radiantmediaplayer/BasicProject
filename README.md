@@ -26,6 +26,7 @@ This demo app has been built to support Basic Device and Smart Control 2016 remo
 ## Important support notes
 
 - You may want to review the config.xml file to allow common privileges for video apps for Tizen TV
+- We recommend using MPEG-DASH streaming for Samsung TVs. While it is technically possible to use HLS or MP4 progressive download on Tizen platform we do not officially support those use-cases. 
 - Google IMA (video ads) is not currently supported, please use our rmp-vast parser to display video ads on Samsung Smart TV
 
 ## Issues
