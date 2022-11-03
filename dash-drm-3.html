@@ -19,6 +19,8 @@
 			licenseKey: 'your-license-key',
 			src: src,
 			autoplay: true,
+			capLevelToPlayerSize: false,
+			disableKeyboardControl: true,
 			delayToFade: 5000,
 			contentMetadata: {
 				title: 'DASH DRM Angel One no_auth (Widevine)',
@@ -49,7 +51,7 @@
 		var newerBrowsers = 'noModule' in HTMLScriptElement.prototype;
 		if (newerBrowsers) {
 			// Tizen 5+
-			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/7.9.1/js/rmp.min.js';
+			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/7.11.8/js/rmp.min.js';
 		} else {
 			// Tizen 3 & 4
 			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/0.1.0/js/rmp.min.js';
