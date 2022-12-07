@@ -130,7 +130,7 @@ var _registerKey = function () {
 };
 
 // when player is ready we wire the UI
-container.addEventListener('ready', function () {
+container.addEventListener('loadeddata', function () {
   playerButtons[0].element = container.querySelector('.rmp-play-pause');
   playerButtons[0].element.setAttribute('data-button-id', '0');
   _registerKey();

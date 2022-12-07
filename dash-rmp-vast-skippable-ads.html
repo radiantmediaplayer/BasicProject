@@ -10,6 +10,7 @@
 </head>
 
 <body>
+	<script src="https://cdn.radiantmediatechs.com/rmp/8.1.3/js/rmp-shaka.min.js"></script>
 	<div id="rmp"></div>
 	<script>
 		var src = {
@@ -23,6 +24,7 @@
 			},
 			autoplay: true,
 			capLevelToPlayerSize: false,
+			ignoreDevicePixelRatio: false,
 			disableKeyboardControl: true,
 			delayToFade: 5000,
 			ads: true,
@@ -30,31 +32,8 @@
 			adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now(),
 			skin: 'tv'
 		};
-
-		var _onLoadAppendPlayer = function () {
-			window.rmp = new RadiantMP('rmp');
-			window.rmp.init(settings);
-		};
-
-		var _onErrorLog = function () {
-			console.log('could not load Radiant Media Player JavaScript file');
-		};
-
-		var rmpScript = document.createElement('script');
-		// Feature detection for newer browsers that support module import/export
-		var newerBrowsers = 'noModule' in HTMLScriptElement.prototype;
-		if (newerBrowsers) {
-			// Tizen 5+
-			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/7.11.8/js/rmp.min.js';
-		} else {
-			// Tizen 3 & 4
-			rmpScript.src = 'https://cdn.radiantmediatechs.com/rmp/0.1.0/js/rmp.min.js';
-		}
-		rmpScript.async = true;
-		rmpScript.addEventListener('load', _onLoadAppendPlayer);
-		rmpScript.addEventListener('error', _onErrorLog);
-		document.head.appendChild(rmpScript);
-
+		window.rmp = new RadiantMP('rmp');
+		window.rmp.init(settings);
 	</script>
 	<script src="js/player-skippable-ads.js"></script>
 </body>

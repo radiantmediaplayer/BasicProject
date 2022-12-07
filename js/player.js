@@ -139,7 +139,7 @@ var _registerKey = function () {
 };
 
 // when player is ready we wire the UI
-container.addEventListener('ready', function () {
+container.addEventListener('loadeddata', function () {
   playerButtons[0].element = container.querySelector('.rmp-i-fast-rewind');
   playerButtons[0].element.setAttribute('data-button-id', '0');
   playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');

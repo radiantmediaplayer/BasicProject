@@ -22,35 +22,23 @@
  * allow remote control navigation on control bar buttons 
  * also hide the play/pause button on top right corner
  */
-.rmp-tv-player.rmp-module-open-ui .rmp-control-bar {
+.rmp-tv.rmp-module-open-ui .rmp-control-bar {
   display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
-.rmp-tv-player.rmp-module-open-ui .rmp-handle {
+.rmp-tv.rmp-module-open-ui .rmp-handle {
   z-index: auto;
 }
 
-.rmp-tv-player .rmp-module-overlay-icons.rmp-module-overlay-play-pause {
-  display: none !important;
-}
-
-/* hide rewind/forward icons with live and ads */
-.rmp-tv-player.rmp-linear-ad-ui .rmp-i-fast-forward,
-.rmp-tv-player.rmp-linear-ad-ui .rmp-i-fast-rewind,
-.rmp-tv-player.rmp-linear-ad-ui .rmp-i-quick-forward-tv,
-.rmp-tv-player.rmp-linear-ad-ui .rmp-i-quick-rewind-tv,
-.rmp-tv-player.rmp-live .rmp-i-fast-forward,
-.rmp-tv-player.rmp-live .rmp-i-fast-rewind,
-.rmp-tv-player.rmp-live .rmp-i-quick-forward-tv,
-.rmp-tv-player.rmp-live .rmp-i-quick-rewind-tv {
+.rmp-tv .rmp-module-overlay-icons.rmp-module-overlay-play-pause {
   display: none !important;
 }
 
 /* cap title/description size */
-.rmp-tv-player .rmp-title,
-.rmp-tv-player .rmp-description {
+.rmp-tv .rmp-title,
+.rmp-tv .rmp-description {
   max-width: 50%;
 }
 
