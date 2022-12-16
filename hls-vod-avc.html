@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>DASH VOD HEVC</title>
+	<title>CMAF HLS VOD AVC</title>
 	<link rel="stylesheet" type="text/css" href="css/player.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -14,7 +14,7 @@
 	<div id="rmp"></div>
 	<script>
 		var src = {
-			dash: 'https://www.radiantmediaplayer.com/media/dash/4k-hevc-aac/manifest.mpd'
+			hls: 'https://www.radiantmediaplayer.com/media/v1/avc-mp4/hls/playlist.m3u8'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
@@ -25,7 +25,7 @@
 			disableKeyboardControl: true,
 			delayToFade: 5000,
 			contentMetadata: {
-				title: 'DASH VOD HEVC',
+				title: 'CMAF HLS VOD AVC',
 			},
 			skin: 'tv'
 		};

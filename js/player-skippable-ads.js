@@ -156,7 +156,7 @@ var _registerKey = function () {
 
 // when player is ready we wire the UI
 container.addEventListener('loadeddata', function () {
-  playerButtons[0].element = container.querySelector('.rmp-i-fast-rewind');
+  playerButtons[0].element = container.querySelector('.rmp-fast-rewind');
   playerButtons[0].element.setAttribute('data-button-id', '0');
   playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');
   playerButtons[1].element.setAttribute('data-button-id', '1');
@@ -164,7 +164,7 @@ container.addEventListener('loadeddata', function () {
   playerButtons[2].element.setAttribute('data-button-id', '2');
   playerButtons[3].element = container.querySelector('.rmp-i-quick-forward-tv');
   playerButtons[3].element.setAttribute('data-button-id', '3');
-  playerButtons[4].element = container.querySelector('.rmp-i-fast-forward');
+  playerButtons[4].element = container.querySelector('.rmp-fast-forward');
   playerButtons[4].element.setAttribute('data-button-id', '4');
   _registerKey();
   document.body.addEventListener('keydown', _onKeyDown);
@@ -183,7 +183,7 @@ container.addEventListener('adstarted', function () {
 
 container.addEventListener('addestroyed', function () {
   playerButtons = playerButtonsForContent;
-  playerButtons[0].element = container.querySelector('.rmp-i-fast-rewind');
+  playerButtons[0].element = container.querySelector('.rmp-fast-rewind');
   playerButtons[0].element.setAttribute('data-button-id', '0');
   playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');
   playerButtons[1].element.setAttribute('data-button-id', '1');
@@ -191,7 +191,7 @@ container.addEventListener('addestroyed', function () {
   playerButtons[2].element.setAttribute('data-button-id', '2');
   playerButtons[3].element = container.querySelector('.rmp-i-quick-forward-tv');
   playerButtons[3].element.setAttribute('data-button-id', '3');
-  playerButtons[4].element = container.querySelector('.rmp-i-fast-forward');
+  playerButtons[4].element = container.querySelector('.rmp-fast-forward');
   playerButtons[4].element.setAttribute('data-button-id', '4');
   _setActiveButton(2);
 });

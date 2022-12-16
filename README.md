@@ -8,8 +8,7 @@ You can use Radiant Media Player to build media-oriented web-based Samsung Smart
 The player is equipped with various optimisations, notably file:// protocol support, to work in the following environments:
 
 - Web applications for smart TV built with Tizen Studio
-- Targeting deployment on Samsung Smart TV 2019+ models (Tizen 5+)
-- Targeting deployment on Samsung Smart TV 2017+ models (Tizen 3+) using our player legacy builds
+- Targeting deployment on Samsung Smart TV 2017+ models (Tizen 3+)
 
 To get started with your first Tizen TV Web Application [follow that guide](https://docs.tizen.org/application/web/get-started/tv/first-app).
 
@@ -26,7 +25,7 @@ This demo app has been built to support Basic Device and Smart Control 2016 remo
 ## Important support notes
 
 - You may want to review the config.xml file to allow common privileges for video apps for Tizen TV
-- We currently only support using MPEG-DASH for streaming to LG TVs. While it is technically possible to use HLS or MP4 progressive download on Tizen TV  platform we do not officially support those use-cases
+- We support streaming with MPEG-DASH or CMAF HLS (HLS in MPEG-TS format is not supported)
 - Google IMA (video ads) is not currently supported, please use our rmp-vast parser to display video ads on Samsung Smart TV
 
 ## Issues

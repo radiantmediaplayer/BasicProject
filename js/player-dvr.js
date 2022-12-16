@@ -144,7 +144,7 @@ var _registerKey = function () {
 container.addEventListener('loadeddata', function () {
   playerButtons[0].element = container.querySelector('.rmp-time-elapsed-text');
   playerButtons[0].element.setAttribute('data-button-id', '0');
-  playerButtons[1].element = container.querySelector('.rmp-i-fast-rewind');
+  playerButtons[1].element = container.querySelector('.rmp-fast-rewind');
   playerButtons[1].element.setAttribute('data-button-id', '1');
   playerButtons[2].element = container.querySelector('.rmp-i-quick-rewind-tv');
   playerButtons[2].element.setAttribute('data-button-id', '2');
@@ -152,7 +152,7 @@ container.addEventListener('loadeddata', function () {
   playerButtons[3].element.setAttribute('data-button-id', '3');
   playerButtons[4].element = container.querySelector('.rmp-i-quick-forward-tv');
   playerButtons[4].element.setAttribute('data-button-id', '4');
-  playerButtons[5].element = container.querySelector('.rmp-i-fast-forward');
+  playerButtons[5].element = container.querySelector('.rmp-fast-forward');
   playerButtons[5].element.setAttribute('data-button-id', '5');
   _registerKey();
   document.body.addEventListener('keydown', _onKeyDown);

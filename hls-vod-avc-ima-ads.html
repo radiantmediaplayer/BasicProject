@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<title>DASH VOD HEVC</title>
+	<title>CMAF HLS with video ads (Google IMA)</title>
 	<link rel="stylesheet" type="text/css" href="css/player.css">
 	<meta name="robots" content="noindex">
 </head>
@@ -14,7 +14,7 @@
 	<div id="rmp"></div>
 	<script>
 		var src = {
-			dash: 'https://www.radiantmediaplayer.com/media/dash/4k-hevc-aac/manifest.mpd'
+			hls: 'https://www.radiantmediaplayer.com/media/v1/avc-mp4/hls/playlist.m3u8'
 		};
 		var settings = {
 			licenseKey: 'your-license-key',
@@ -24,8 +24,11 @@
 			ignoreDevicePixelRatio: false,
 			disableKeyboardControl: true,
 			delayToFade: 5000,
+			ads: true,
+			adParser: 'ima',
+			adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now(),
 			contentMetadata: {
-				title: 'DASH VOD HEVC',
+				title: 'CMAF HLS with video ads (Google IMA)',
 			},
 			skin: 'tv'
 		};
