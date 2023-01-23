@@ -1,11 +1,3 @@
-/* 
- * 0 == fastRewind button 
- * 1 == quickRewind button 
- * 2 == playPause button
- * 3 == quickForward button 
- * 4 == fastForward button
- */
-
 var playerButtons = [
   { id: 0, name: 'fastRewind', element: null },
   { id: 1, name: 'quickRewind', element: null },
@@ -16,7 +8,6 @@ var playerButtons = [
 
 var container = document.getElementById('rmp');
 var currentActiveButtonId, isPaused;
-var currentActiveButton;
 
 var _createEvent = function (eventName, element) {
   var event;
@@ -67,7 +58,7 @@ var _handleButtons = function (keyCode) {
 };
 
 var _triggerButton = function () {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
+  var currentActiveButton = container.querySelector('.rmp-button-hover');
   _createEvent('click', currentActiveButton);
 };
 
@@ -138,7 +129,7 @@ var _registerKey = function () {
   }
 };
 
-// when player is ready we wire the UI
+// when player reaches loadeddata we wire the UI
 container.addEventListener('loadeddata', function () {
   playerButtons[0].element = container.querySelector('.rmp-fast-rewind');
   playerButtons[0].element.setAttribute('data-button-id', '0');

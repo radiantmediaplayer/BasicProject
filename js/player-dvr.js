@@ -1,12 +1,3 @@
-/* 
- * 0 == DVR button
- * 1 == fastRewind button 
- * 2 == quickRewind button 
- * 3 == playPause button
- * 4 == quickForward button 
- * 5 == fastForward button
- */
-
 var playerButtons = [
   { id: 0, name: 'dvr', element: null },
   { id: 1, name: 'fastRewind', element: null },
@@ -17,7 +8,7 @@ var playerButtons = [
 ];
 
 var container = document.getElementById('rmp');
-var currentActiveButtonId, isPaused, currentActiveButton;
+var currentActiveButtonId, isPaused;
 
 var _createEvent = function (eventName, element) {
   var event;
@@ -39,13 +30,12 @@ var _removeHoverClass = function () {
 };
 
 var _setActiveButton = function (id) {
+  _removeHoverClass();
   currentActiveButtonId = id;
   playerButtons[id].element.classList.add('rmp-button-hover');
 };
 
 var _handleButtons = function (keyCode) {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
-  _removeHoverClass();
   var newId;
   switch (keyCode) {
     case 38: // ArrowUp
@@ -69,13 +59,11 @@ var _handleButtons = function (keyCode) {
 };
 
 var _triggerButton = function () {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
+  var currentActiveButton = container.querySelector('.rmp-button-hover');
   _createEvent('click', currentActiveButton);
 };
 
 // when TV remote buttons are pressed do something
-// we deal with 2 kind of remote: Basic Device, Smart Control 2016
-
 var _onKeyDown = function (e) {
   var currentTime = window.rmp.getCurrentTime();
   var keyCode = e.keyCode;
@@ -140,9 +128,12 @@ var _registerKey = function () {
   }
 };
 
+_registerKey();
+document.body.addEventListener('keydown', _onKeyDown);
+
 // when player is ready we wire the UI
 container.addEventListener('loadeddata', function () {
-  playerButtons[0].element = container.querySelector('.rmp-time-elapsed-text');
+  playerButtons[0].element = container.querySelector('.rmp-time');
   playerButtons[0].element.setAttribute('data-button-id', '0');
   playerButtons[1].element = container.querySelector('.rmp-fast-rewind');
   playerButtons[1].element.setAttribute('data-button-id', '1');
@@ -154,8 +145,5 @@ container.addEventListener('loadeddata', function () {
   playerButtons[4].element.setAttribute('data-button-id', '4');
   playerButtons[5].element = container.querySelector('.rmp-fast-forward');
   playerButtons[5].element.setAttribute('data-button-id', '5');
-  _registerKey();
-  document.body.addEventListener('keydown', _onKeyDown);
   _setActiveButton(3);
-  currentActiveButton = container.querySelector('.rmp-button-hover');
 });

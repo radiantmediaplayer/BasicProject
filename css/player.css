@@ -5,16 +5,13 @@
   color: #ff1744;
 }
 
-.rmp-overlay-level.rmp-button-hover {
-  border-color: #ff1744;
-}
-
+.rmp-overlay-wrapper .rmp-button-hover,
 .rmp-ad-container-skip.rmp-button-hover {
-  border: 2px solid #ff1744;
+  border: 2px solid #ff1744 !important;
 }
 
-.rmp-button-hover > .rmp-time-elapsed-text {
-  border: 4px solid #fff;
+.rmp-button-hover.rmp-time {
+  border: 2px solid #ff1744;
 }
 
 /* 
@@ -36,12 +33,45 @@
   display: none !important;
 }
 
-/* cap title/description size */
-.rmp-tv .rmp-title,
-.rmp-tv .rmp-description {
-  max-width: 50%;
+.rmp-tv .rmp-module-fcc-settings {
+  display: none !important;
 }
 
-.rmp-module-fcc-settings {
+.rmp-tv.rmp-linear-ad-ui .rmp-play-pause {
   display: none !important;
+}
+
+.rmp-tv.rmp-linear-ad-ui .rmp-control-bar {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.rmp-tv .rmp-cc-area {
+  bottom: 120px !important;
+}
+
+.rmp-tv .rmp-overlay-level {
+  height: 60px;
+  line-height: 56px;
+  width: 344px;
+  font-size: 28px;
+  margin-left: -172px;
+  margin-bottom: 16px;
+}
+
+.rmp-tv .rmp-overlay-title {
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.rmp-tv .rmp-overlay-title-text {
+  font-size: 28px;
+}
+
+.rmp-tv .rmp-module-overlay .rmp-i {
+  font-size: 3.72em;
+}
+
+.rmp-tv .rmp-module-overlay-close {
+  right: 104px !important;
 }

@@ -1,12 +1,9 @@
-/* 0 == playPause button
-*/
 var playerButtons = [
   { id: 0, name: 'playPause', element: null }
 ];
 
 var container = document.getElementById('rmp');
 var currentActiveButtonId, isPaused;
-var currentActiveButton;
 
 var _createEvent = function (eventName, element) {
   var event;
@@ -33,7 +30,6 @@ var _setActiveButton = function (id) {
 };
 
 var _handleButtons = function (keyCode) {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
   _removeHoverClass();
   var newId;
   switch (keyCode) {
@@ -58,25 +54,16 @@ var _handleButtons = function (keyCode) {
 };
 
 var _triggerButton = function () {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
+  var currentActiveButton = container.querySelector('.rmp-button-hover');
   _createEvent('click', currentActiveButton);
 };
 
 // when TV remote buttons are pressed do something
-// we deal with 2 kind of remote: Basic Device, Smart Control 2016
-
 var _onKeyDown = function (e) {
-  var currentTime = window.rmp.getCurrentTime();
   var keyCode = e.keyCode;
   window.console.log('Key code called : ' + keyCode);
   window.rmp.setControlsVisible(true);
   switch (keyCode) {
-    case 412: // MediaRewind 
-      window.rmp.seekTo(currentTime - 10000);
-      break;
-    case 417: // MediaFastForward 
-      window.rmp.seekTo(currentTime + 10000);
-      break;
     case 10009: // Back
       window.location.replace('index.html');
       break;
@@ -118,8 +105,6 @@ var _registerKey = function () {
     window.console.log(value);
     tizen.tvinputdevice.registerKeyBatch([
       'MediaPlayPause',
-      'MediaRewind',
-      'MediaFastForward',
       'MediaPlay',
       'MediaPause',
       'MediaStop'
@@ -136,5 +121,4 @@ container.addEventListener('loadeddata', function () {
   _registerKey();
   document.body.addEventListener('keydown', _onKeyDown);
   _setActiveButton(0);
-  currentActiveButton = container.querySelector('.rmp-button-hover');
 });

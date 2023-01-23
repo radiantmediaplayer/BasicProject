@@ -1,36 +1,13 @@
-/* 
- * 0 == fastRewind button 
- * 1 == quickRewind button 
- * 2 == playPause button
- * 3 == quickForward button 
- * 4 == fastForward button
- * 5 == skip ad button
- */
-
 var playerButtons = [
-  { id: 0, name: 'fastRewind', element: null },
-  { id: 1, name: 'quickRewind', element: null },
-  { id: 2, name: 'playPause', element: null },
-  { id: 3, name: 'quickForward', element: null },
-  { id: 4, name: 'fastForward', element: null }
-];
-
-var playerButtonsForContent = [
-  { id: 0, name: 'fastRewind', element: null },
-  { id: 1, name: 'quickRewind', element: null },
-  { id: 2, name: 'playPause', element: null },
-  { id: 3, name: 'quickForward', element: null },
-  { id: 4, name: 'fastForward', element: null }
-];
-
-var playerButtonsForAds = [
-  { id: 0, name: 'playPause', element: null },
-  { id: 1, name: 'skipAd', element: null }
+  { name: 'fastRewind', element: null },
+  { name: 'quickRewind', element: null },
+  { name: 'playPause', element: null },
+  { name: 'quickForward', element: null },
+  { name: 'fastForward', element: null }
 ];
 
 var container = document.getElementById('rmp');
 var currentActiveButtonId, isPaused;
-var currentActiveButton;
 
 var _createEvent = function (eventName, element) {
   var event;
@@ -47,17 +24,27 @@ var _createEvent = function (eventName, element) {
 // handle requests from TV remote
 var _removeHoverClass = function () {
   for (var i = 0, len = playerButtons.length; i < len; i++) {
-    playerButtons[i].element.classList.remove('rmp-button-hover');
+    if (playerButtons[i].element) {
+      playerButtons[i].element.classList.remove('rmp-button-hover');
+    }
   }
 };
 
 var _setActiveButton = function (id) {
   currentActiveButtonId = id;
-  playerButtons[id].element.classList.add('rmp-button-hover');
+  if (playerButtons[id].element) {
+    playerButtons[id].element.classList.add('rmp-button-hover');
+  }
+  window.rmp.setControlsVisible(true);
 };
 
 var _handleButtons = function (keyCode) {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
+  // if no active button, we default to play button
+  var currentActiveButton = container.querySelector('.rmp-button-hover');
+  if (!currentActiveButton) {
+    _setActiveButton(2);
+    return;
+  }
   _removeHoverClass();
   var newId;
   switch (keyCode) {
@@ -78,22 +65,19 @@ var _handleButtons = function (keyCode) {
       }
       break;
   }
-  console.log(newId);
   _setActiveButton(newId);
 };
 
 var _triggerButton = function () {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
+  var currentActiveButton = container.querySelector('.rmp-button-hover');
   _createEvent('click', currentActiveButton);
 };
 
 // when TV remote buttons are pressed do something
-// we deal with 2 kind of remote: Basic Device, Smart Control 2016
-
 var _onKeyDown = function (e) {
   var currentTime = window.rmp.getCurrentTime();
   var keyCode = e.keyCode;
-  window.console.log('Key code called : ' + keyCode);
+  console.log('Key code called : ' + keyCode);
   window.rmp.setControlsVisible(true);
   switch (keyCode) {
     case 412: // MediaRewind 
@@ -118,7 +102,11 @@ var _onKeyDown = function (e) {
     case 38: // ArrowUp
     case 39: // ArrowRight
     case 40: // ArrowDown
-      _handleButtons(keyCode);
+      // ad on stage - if skippable focus is on skip button 
+      // otherwise the ad plays without remote interaction
+      if (!window.rmp.getAdOnStage()) {
+        _handleButtons(keyCode);
+      }
       break;
     case 13: // Enter
       _triggerButton();
@@ -140,7 +128,7 @@ var _onKeyDown = function (e) {
 var _registerKey = function () {
   try {
     var value = tizen.tvinputdevice.getSupportedKeys();
-    window.console.log(value);
+    console.log(value);
     tizen.tvinputdevice.registerKeyBatch([
       'MediaPlayPause',
       'MediaRewind',
@@ -154,7 +142,10 @@ var _registerKey = function () {
   }
 };
 
-// when player is ready we wire the UI
+document.body.addEventListener('keydown', _onKeyDown);
+_registerKey();
+
+// when player reaches loadeddata we wire the UI
 container.addEventListener('loadeddata', function () {
   playerButtons[0].element = container.querySelector('.rmp-fast-rewind');
   playerButtons[0].element.setAttribute('data-button-id', '0');
@@ -166,33 +157,26 @@ container.addEventListener('loadeddata', function () {
   playerButtons[3].element.setAttribute('data-button-id', '3');
   playerButtons[4].element = container.querySelector('.rmp-fast-forward');
   playerButtons[4].element.setAttribute('data-button-id', '4');
-  _registerKey();
-  document.body.addEventListener('keydown', _onKeyDown);
-  _setActiveButton(2);
-  currentActiveButton = container.querySelector('.rmp-button-hover');
 });
 
 container.addEventListener('adstarted', function () {
-  playerButtons = playerButtonsForAds;
-  playerButtons[0].element = container.querySelector('.rmp-play-pause');
-  playerButtons[0].element.setAttribute('data-button-id', '0');
-  playerButtons[1].element = container.querySelector('.rmp-ad-container-skip');
-  playerButtons[1].element.setAttribute('data-button-id', '1');
-  _setActiveButton(0);
+  var skipButton = {
+    name: 'skipAd',
+    element: container.querySelector('.rmp-ad-container-skip')
+  };
+  if (skipButton.element) {
+    playerButtons.push(skipButton);
+    skipButton.element.setAttribute('data-button-id', '5');
+    _setActiveButton(5);
+  }
 });
 
 container.addEventListener('addestroyed', function () {
-  playerButtons = playerButtonsForContent;
-  playerButtons[0].element = container.querySelector('.rmp-fast-rewind');
-  playerButtons[0].element.setAttribute('data-button-id', '0');
-  playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');
-  playerButtons[1].element.setAttribute('data-button-id', '1');
-  playerButtons[2].element = container.querySelector('.rmp-play-pause');
-  playerButtons[2].element.setAttribute('data-button-id', '2');
-  playerButtons[3].element = container.querySelector('.rmp-i-quick-forward-tv');
-  playerButtons[3].element.setAttribute('data-button-id', '3');
-  playerButtons[4].element = container.querySelector('.rmp-fast-forward');
-  playerButtons[4].element.setAttribute('data-button-id', '4');
-  _setActiveButton(2);
+  // remove skip button if needs be
+  if (playerButtons.length === 6) {
+    playerButtons.pop();
+  }
+  setTimeout(function () {
+    _setActiveButton(2);
+  }, 1000);
 });
-

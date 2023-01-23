@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<title>DASH with video ads (rmp-vast)</title>
+	<link rel="stylesheet" type="text/css" href="css/player.css">
+	<meta name="robots" content="noindex">
+</head>
+
+<body>
+	<script src="https://cdn.radiantmediatechs.com/rmp/8.4.10/js/rmp.min.js"></script>
+	<div id="rmp"></div>
+	<script>
+		var src = {
+			dash: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/manifest.mpd'
+		};
+		var schedule = {
+			// Preroll
+			preroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now(),
+			// Midroll
+			midroll: [
+				[15, 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now()],
+				[120, 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now()]
+			],
+			// Postroll
+			postroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now()
+		};
+		var settings = {
+			licenseKey: 'your-license-key',
+			src: src,
+			contentMetadata: {
+				title: 'DASH with video ads (rmp-vast)',
+			},
+			autoplay: true,
+			capLevelToPlayerSize: false,
+			ignoreDevicePixelRatio: false,
+			disableKeyboardControl: true,
+			delayToFade: 5000,
+			ads: true,
+			adParser: 'rmp-vast',
+			adSchedule: schedule,
+			skin: 'tv'
+		};
+		window.rmp = new RadiantMP('rmp');
+		window.rmp.init(settings);
+	</script>
+	<script src="js/player-ads.js"></script>
+</body>
+
+</html>

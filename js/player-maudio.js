@@ -1,13 +1,3 @@
-/* 
- * 0 == fastRewind button 
- * 1 == quickRewind button 
- * 2 == playPause button
- * 3 == quickForward button 
- * 4 == fastForward button
- * 5 == audio module button
- * 6 == audio module close button
- */
-
 var playerButtons = [
   { id: 0, name: 'fastRewind', element: null },
   { id: 1, name: 'quickRewind', element: null },
@@ -20,7 +10,6 @@ var playerButtons = [
 
 var container = document.getElementById('rmp');
 var currentActiveButtonId, isPaused;
-var currentActiveButton;
 
 var _createEvent = function (eventName, element) {
   var event;
@@ -42,15 +31,14 @@ var _removeHoverClass = function () {
 };
 
 var _setActiveButton = function (id) {
+  _removeHoverClass();
   currentActiveButtonId = id;
   playerButtons[id].element.classList.add('rmp-button-hover');
 };
 
 var moduleVisible = false;
 var _handleButtons = function (keyCode) {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
   moduleVisible = window.rmp.getModuleOverlayVisible('audio');
-  _removeHoverClass();
   var newId;
   switch (keyCode) {
     case 38: // ArrowUp
@@ -63,10 +51,6 @@ var _handleButtons = function (keyCode) {
       if (!moduleVisible) {
         if (newId > 5) {
           newId = 0;
-        }
-      } else {
-        if (newId === 5) {
-          newId = 6;
         }
       }
       break;
@@ -81,10 +65,6 @@ var _handleButtons = function (keyCode) {
         if (newId > 5) {
           newId = 5;
         }
-      } else {
-        if (newId === 5) {
-          newId = 4;
-        }
       }
       break;
   }
@@ -92,13 +72,11 @@ var _handleButtons = function (keyCode) {
 };
 
 var _triggerButton = function () {
-  currentActiveButton = container.querySelector('.rmp-button-hover');
+  var currentActiveButton = container.querySelector('.rmp-button-hover');
   _createEvent('click', currentActiveButton);
 };
 
 // when TV remote buttons are pressed do something
-// we deal with 2 kind of remote: Basic Device, Smart Control 2016
-
 var _onKeyDown = function (e) {
   var currentTime = window.rmp.getCurrentTime();
   var keyCode = e.keyCode;
@@ -163,6 +141,9 @@ var _registerKey = function () {
   }
 };
 
+_registerKey();
+document.body.addEventListener('keydown', _onKeyDown);
+
 // when player is ready we wire the UI
 container.addEventListener('loadeddata', function () {
   playerButtons[0].element = container.querySelector('.rmp-fast-rewind');
@@ -175,19 +156,17 @@ container.addEventListener('loadeddata', function () {
   playerButtons[3].element.setAttribute('data-button-id', '3');
   playerButtons[4].element = container.querySelector('.rmp-fast-forward');
   playerButtons[4].element.setAttribute('data-button-id', '4');
-  _registerKey();
-  document.body.addEventListener('keydown', _onKeyDown);
   _setActiveButton(2);
-  currentActiveButton = container.querySelector('.rmp-button-hover');
 });
 
 // audio tracks module is available
 container.addEventListener('shakatrackschanged', function () {
   playerButtons[5].element = container.querySelector('.rmp-audio');
   playerButtons[5].element.setAttribute('data-button-id', '5');
-  playerButtons[6].element = container.querySelector('.rmp-module-overlay-icons.rmp-module-overlay-close');
+  playerButtons[6].element = container.querySelector('[data-type="audio"] .rmp-module-overlay-icons.rmp-module-overlay-close');
   playerButtons[6].element.setAttribute('data-button-id', '6');
-  var audioTracks = container.querySelectorAll('.rmp-overlay-levels-area > .rmp-button.rmp-overlay-level');
+  var audioTracks = container.querySelectorAll('[data-type="audio"] .rmp-button.rmp-overlay-level');
+  console.log(audioTracks);
   if (audioTracks.length > 0) {
     for (var i = 0, len = audioTracks.length; i < len; i++) {
       var id = 6 + i + 1;
@@ -199,4 +178,8 @@ container.addEventListener('shakatrackschanged', function () {
       );
     }
   }
+
+  playerButtons[5].element.addEventListener('click', function () {
+    _setActiveButton(7);
+  });
 });
