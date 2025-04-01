@@ -1,12 +1,12 @@
-var playerButtons = [
+const playerButtons = [
   { id: 0, name: 'playPause', element: null }
 ];
 
-var container = document.getElementById('rmp');
-var currentActiveButtonId, isPaused;
+const container = document.querySelector('.rmp-container');
+let currentActiveButtonId, isPaused;
 
-var _createEvent = function (eventName, element) {
-  var event;
+const _createEvent = (eventName, element) => {
+  let event;
   if (element) {
     try {
       event = new Event(eventName);
@@ -18,20 +18,20 @@ var _createEvent = function (eventName, element) {
 };
 
 // handle requests from TV remote
-var _removeHoverClass = function () {
-  for (var i = 0, len = playerButtons.length; i < len; i++) {
+const _removeHoverClass = () => {
+  for (let i = 0, len = playerButtons.length; i < len; i++) {
     playerButtons[i].element.classList.remove('rmp-button-hover');
   }
 };
 
-var _setActiveButton = function (id) {
+const _setActiveButton = (id) => {
   currentActiveButtonId = id;
   playerButtons[id].element.classList.add('rmp-button-hover');
 };
 
-var _handleButtons = function (keyCode) {
+const _handleButtons = (keyCode) => {
   _removeHoverClass();
-  var newId;
+  let newId;
   switch (keyCode) {
     case 38: // ArrowUp
     case 39: // ArrowRight
@@ -53,28 +53,38 @@ var _handleButtons = function (keyCode) {
   _setActiveButton(newId);
 };
 
-var _triggerButton = function () {
-  var currentActiveButton = container.querySelector('.rmp-button-hover');
+const _triggerButton = () => {
+  const currentActiveButton = container.querySelector('.rmp-button-hover');
   _createEvent('click', currentActiveButton);
 };
 
 // when TV remote buttons are pressed do something
-var _onKeyDown = function (e) {
-  var keyCode = e.keyCode;
+const _onKeyDown = (e) => {
+  const keyCode = e.keyCode;
   window.console.log('Key code called : ' + keyCode);
-  window.rmp.setControlsVisible(true);
+  window.rmp.controlsVisible = true;
   switch (keyCode) {
     case 10009: // Back
       window.location.replace('index.html');
       break;
     case 415: // MediaPlay
-      window.rmp.play();
+      window.rmp.play().then(() => {
+        console.log('play was successful');
+      }).catch(warning => {
+        // something went wrong and the play request was not successful
+        console.warn(warning);
+      });
       break;
     case 19: // MediaPause
       window.rmp.pause();
       break;
     case 413: // MediaStop
-      window.rmp.stop();
+      window.rmp.stop().then(() => {
+        console.log('stop was successful');
+      }).catch(warning => {
+        // something went wrong and the stop request was not successful
+        console.warn(warning);
+      });
       break;
     case 37: // ArrowLeft
     case 38: // ArrowUp
@@ -86,9 +96,14 @@ var _onKeyDown = function (e) {
       _triggerButton();
       break;
     case 10252: // MediaPlayPause
-      isPaused = window.rmp.getPaused();
+      isPaused = window.rmp.paused;
       if (isPaused) {
-        window.rmp.play();
+        window.rmp.play().then(() => {
+          console.log('play was successful');
+        }).catch(warning => {
+          // something went wrong and the play request was not successful
+          console.warn(warning);
+        });
       } else {
         window.rmp.pause();
       }
@@ -99,9 +114,9 @@ var _onKeyDown = function (e) {
 };
 
 // register additional keys as per https://developer.samsung.com/smarttv/develop/guides/user-interaction/remote-control.html
-var _registerKey = function () {
+const _registerKey = () => {
   try {
-    var value = tizen.tvinputdevice.getSupportedKeys();
+    const value = tizen.tvinputdevice.getSupportedKeys();
     window.console.log(value);
     tizen.tvinputdevice.registerKeyBatch([
       'MediaPlayPause',
@@ -114,8 +129,8 @@ var _registerKey = function () {
   }
 };
 
-// when player is ready we wire the UI
-container.addEventListener('loadeddata', function () {
+// when player reaches loadeddata we wire the UI
+window.rmp.on('loadeddata', () => {
   playerButtons[0].element = container.querySelector('.rmp-play-pause');
   playerButtons[0].element.setAttribute('data-button-id', '0');
   _registerKey();

@@ -10,30 +10,41 @@
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/8.4.10/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/10.1.2/js/rmp.min.js"></script>
 	<div id="rmp"></div>
 	<script>
-		var src = {
-			dash: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/manifest.mpd'
+		const src = {
+			dash: 'https://www.radiantmediaplayer.com/media/v1/avc-mp4/dash/manifest.mpd'
 		};
-		var settings = {
+		const settings = {
 			licenseKey: 'your-license-key',
-			src: src,
+			src,
 			contentMetadata: {
 				title: 'DASH with video ads (rmp-vast)',
 			},
 			autoplay: true,
 			capLevelToPlayerSize: false,
-			ignoreDevicePixelRatio: false,
 			disableKeyboardControl: true,
 			delayToFade: 5000,
 			ads: true,
 			adParser: 'rmp-vast',
-			adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=' + Date.now(),
+			adTagUrl: 'https://www.radiantmediaplayer.com/vast/tags/inline-linear-1.xml?cb=' + Date.now(),
 			skin: 'tv'
 		};
-		window.rmp = new RadiantMP('rmp');
-		window.rmp.init(settings);
+		const elementID = 'rmp';
+		// Create an object based on RadiantMP constructor
+		window.rmp = new RadiantMP(elementID);
+		// Initialization ... and done!
+		async function initRmpPlayer() {
+			try {
+				await window.rmp.init(settings);
+			} catch (error) {
+				// This should not happen often, but when it happens it could be due to:
+				// invalid license key|cannot find container element (or PARENT)|no playback support
+				console.error('Radiant Media Player failed to initialize', error);
+			}
+		}
+		initRmpPlayer();
 	</script>
 	<script src="js/player-ads.js"></script>
 </body>

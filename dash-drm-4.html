@@ -10,11 +10,11 @@
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/8.4.10/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/10.1.2/js/rmp.min.js"></script>
 	<div id="rmp"></div>
 	<script>
 		let lastUplynkPrefix = '';
-		var shakaCustomResponseFilter = function (type, response) {
+		const shakaCustomResponseFilter = function (type, response) {
 			if (type == shaka.net.NetworkingEngine.RequestType.MANIFEST) {
 				// Parse a custom header that contains a value needed to build a proper
 				// license server URL.
@@ -25,7 +25,7 @@
 				}
 			}
 		};
-		var shakaCustomRequestFilter = function (type, request) {
+		const shakaCustomRequestFilter = function (type, request) {
 			if (type == shaka.net.NetworkingEngine.RequestType.LICENSE) {
 				// Modify the license request URL based on our cookie.
 				if (request.uris[0].includes('wv') && lastUplynkPrefix) {
@@ -33,19 +33,18 @@
 				}
 			}
 		};
-		var src = {
+		const src = {
 			dash: 'https://content.uplynk.com/847859273a4b4a81959d8fea181672a4.mpd?pr.version=2&pr.playenabler=B621D91F-EDCC-4035-8D4B-DC71760D43E9&pr.securitylevel=150'
 		};
-		var settings = {
+		const settings = {
 			licenseKey: 'your-license-key',
-			src: src,
+			src,
 			autoplay: true,
 			capLevelToPlayerSize: false,
-			ignoreDevicePixelRatio: false,
 			disableKeyboardControl: true,
 			delayToFade: 5000,
-			shakaCustomRequestFilter: shakaCustomRequestFilter,
-			shakaCustomResponseFilter: shakaCustomResponseFilter,
+			shakaCustomRequestFilter,
+			shakaCustomResponseFilter,
 			contentMetadata: {
 				title: 'DASH DRM - 8 Byte IV (Verizon - Widevine)',
 			},
@@ -56,8 +55,20 @@
 			},
 			skin: 'tv'
 		};
-		window.rmp = new RadiantMP('rmp');
-		window.rmp.init(settings);
+		const elementID = 'rmp';
+		// Create an object based on RadiantMP constructor
+		window.rmp = new RadiantMP(elementID);
+		// Initialization ... and done!
+		async function initRmpPlayer() {
+			try {
+				await window.rmp.init(settings);
+			} catch (error) {
+				// This should not happen often, but when it happens it could be due to:
+				// invalid license key|cannot find container element (or PARENT)|no playback support
+				console.error('Radiant Media Player failed to initialize', error);
+			}
+		}
+		initRmpPlayer();
 	</script>
 	<script src="js/player.js"></script>
 </body>

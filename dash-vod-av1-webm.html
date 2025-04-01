@@ -10,27 +10,38 @@
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/8.4.10/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/10.1.2/js/rmp.min.js"></script>
 	<div id="rmp"></div>
 	<script>
-		var src = {
+		const src = {
 			dash: 'https://www.radiantmediaplayer.com/media/dash/4k-av1/manifest.mpd'
 		};
-		var settings = {
+		const settings = {
 			licenseKey: 'your-license-key',
-			src: src,
+			src,
 			delayToFade: 5000,
 			autoplay: true,
 			capLevelToPlayerSize: false,
-			ignoreDevicePixelRatio: false,
 			disableKeyboardControl: true,
 			contentMetadata: {
 				title: 'DASH VOD AV1 (WebM container)',
 			},
 			skin: 'tv'
 		};
-		window.rmp = new RadiantMP('rmp');
-		window.rmp.init(settings);
+		const elementID = 'rmp';
+		// Create an object based on RadiantMP constructor
+		window.rmp = new RadiantMP(elementID);
+		// Initialization ... and done!
+		async function initRmpPlayer() {
+			try {
+				await window.rmp.init(settings);
+			} catch (error) {
+				// This should not happen often, but when it happens it could be due to:
+				// invalid license key|cannot find container element (or PARENT)|no playback support
+				console.error('Radiant Media Player failed to initialize', error);
+			}
+		}
+		initRmpPlayer();
 	</script>
 	<script src="js/player.js"></script>
 </body>

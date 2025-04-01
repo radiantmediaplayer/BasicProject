@@ -1,10 +1,9 @@
-
 // handle requests from TV remote
-var currentAElement;
-var currentIndex = 0;
+let currentAElement;
+let currentIndex = 0;
 
-var _handleButtons = function (type) {
-  var aElements = document.querySelectorAll('a');
+const _handleButtons = function (type) {
+  const aElements = document.querySelectorAll('a');
   if (!currentAElement) {
     currentAElement = aElements[0];
   } else {
@@ -26,13 +25,13 @@ var _handleButtons = function (type) {
   currentAElement.focus();
 };
 
-var _triggerButton = function () {
+const _triggerButton = function () {
   currentAElement.click();
 };
 
-// when TV remote 
-var _onKeyDown = function (e) {
-  var keyCode = e.keyCode;
+// when TV remote
+const _onKeyDown = function (e) {
+  const keyCode = e.keyCode;
   window.console.log('Key code called : ' + keyCode);
   switch (keyCode) {
     case 39: // Right arrow

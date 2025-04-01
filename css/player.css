@@ -29,14 +29,6 @@
   z-index: auto;
 }
 
-.rmp-tv .rmp-module-overlay-icons.rmp-module-overlay-play-pause {
-  display: none !important;
-}
-
-.rmp-tv .rmp-module-fcc-settings {
-  display: none !important;
-}
-
 .rmp-tv.rmp-linear-ad-ui .rmp-play-pause {
   display: none !important;
 }
@@ -46,32 +38,10 @@
   visibility: visible !important;
 }
 
-.rmp-tv .rmp-cc-area {
-  bottom: 120px !important;
-}
-
-.rmp-tv .rmp-overlay-level {
-  height: 60px;
-  line-height: 56px;
-  width: 344px;
-  font-size: 28px;
-  margin-left: -172px;
-  margin-bottom: 16px;
-}
-
-.rmp-tv .rmp-overlay-title {
-  margin-top: 16px;
-  margin-bottom: 32px;
-}
-
-.rmp-tv .rmp-overlay-title-text {
-  font-size: 28px;
-}
-
-.rmp-tv .rmp-module-overlay .rmp-i {
-  font-size: 3.72em;
-}
-
-.rmp-tv .rmp-module-overlay-close {
-  right: 104px !important;
+.rmp-container.rmp-tv .rmp-loading-spin-circle {
+  width: 80px !important;
+  height: 80px !important;
+  left: 20px !important;
+  top: 20px !important;
+  border-width: 6px !important;
 }

@@ -1,16 +1,16 @@
-var playerButtons = [
-  { name: 'fastRewind', element: null },
-  { name: 'quickRewind', element: null },
-  { name: 'playPause', element: null },
-  { name: 'quickForward', element: null },
-  { name: 'fastForward', element: null }
+const playerButtons = [
+  { id: 0, name: 'playPause', element: null },
+  { id: 1, name: 'fastRewind', element: null },
+  { id: 2, name: 'quickRewind', element: null },
+  { id: 3, name: 'quickForward', element: null },
+  { id: 4, name: 'fastForward', element: null }
 ];
 
-var container = document.getElementById('rmp');
-var currentActiveButtonId, isPaused;
+const container = document.getElementById('rmp');
+let currentActiveButtonId, isPaused;
 
-var _createEvent = function (eventName, element) {
-  var event;
+const _createEvent = (eventName, element) => {
+  let event;
   if (element) {
     try {
       event = new Event(eventName);
@@ -22,31 +22,23 @@ var _createEvent = function (eventName, element) {
 };
 
 // handle requests from TV remote
-var _removeHoverClass = function () {
-  for (var i = 0, len = playerButtons.length; i < len; i++) {
+const _removeHoverClass = () => {
+  for (let i = 0, len = playerButtons.length; i < len; i++) {
     if (playerButtons[i].element) {
       playerButtons[i].element.classList.remove('rmp-button-hover');
     }
   }
 };
 
-var _setActiveButton = function (id) {
+const _setActiveButton = (id) => {
   currentActiveButtonId = id;
-  if (playerButtons[id].element) {
-    playerButtons[id].element.classList.add('rmp-button-hover');
-  }
-  window.rmp.setControlsVisible(true);
+  playerButtons[id].element.classList.add('rmp-button-hover');
+  window.rmp.controlsVisible = true;
 };
 
-var _handleButtons = function (keyCode) {
-  // if no active button, we default to play button
-  var currentActiveButton = container.querySelector('.rmp-button-hover');
-  if (!currentActiveButton) {
-    _setActiveButton(2);
-    return;
-  }
+const _handleButtons = (keyCode) => {
   _removeHoverClass();
-  var newId;
+  let newId;
   switch (keyCode) {
     case 38: // ArrowUp
     case 39: // ArrowRight
@@ -68,43 +60,63 @@ var _handleButtons = function (keyCode) {
   _setActiveButton(newId);
 };
 
-var _triggerButton = function () {
-  var currentActiveButton = container.querySelector('.rmp-button-hover');
+const _triggerButton = () => {
+  const currentActiveButton = container.querySelector('.rmp-button-hover');
   _createEvent('click', currentActiveButton);
 };
 
 // when TV remote buttons are pressed do something
-var _onKeyDown = function (e) {
-  var currentTime = window.rmp.getCurrentTime();
-  var keyCode = e.keyCode;
+const _onKeyDown = (e) => {
+  const currentTime = window.rmp.currentTime;
+  const keyCode = e.keyCode;
   console.log('Key code called : ' + keyCode);
-  window.rmp.setControlsVisible(true);
+  window.rmp.controlsVisible = true;
   switch (keyCode) {
-    case 412: // MediaRewind 
-      window.rmp.seekTo(currentTime - 10000);
+    case 412: // MediaRewind
+      window.rmp.seekTo(currentTime - 10000).then(() => {
+        console.log('seekTo was successful');
+      }).catch(warning => {
+        // something went wrong and the seekTo request was not successful
+        console.warn(warning);
+      });
       break;
-    case 417: // MediaFastForward 
-      window.rmp.seekTo(currentTime + 10000);
+    case 417: // MediaFastForward
+      window.rmp.seekTo(currentTime + 10000).then(() => {
+        console.log('seekTo was successful');
+      }).catch(warning => {
+        // something went wrong and the seekTo request was not successful
+        console.warn(warning);
+      });
       break;
     case 10009: // Back
       window.location.replace('index.html');
       break;
     case 415: // MediaPlay
-      window.rmp.play();
+      window.rmp.play().then(() => {
+        console.log('play was successful');
+      }).catch(warning => {
+        // something went wrong and the play request was not successful
+        console.warn(warning);
+      });
       break;
     case 19: // MediaPause
       window.rmp.pause();
       break;
     case 413: // MediaStop
-      window.rmp.stop();
+      window.rmp.stop().then(() => {
+        console.log('stop was successful');
+      }).catch(warning => {
+        // something went wrong and the stop request was not successful
+        console.warn(warning);
+      });
       break;
     case 37: // ArrowLeft
     case 38: // ArrowUp
     case 39: // ArrowRight
     case 40: // ArrowDown
-      // ad on stage - if skippable focus is on skip button 
+      // ad on stage - if skippable focus is on skip button
       // otherwise the ad plays without remote interaction
-      if (!window.rmp.getAdOnStage()) {
+      if (!window.rmp.adOnStage) {
         _handleButtons(keyCode);
       }
       break;
@@ -112,9 +124,14 @@ var _onKeyDown = function (e) {
       _triggerButton();
       break;
     case 10252: // MediaPlayPause
-      isPaused = window.rmp.getPaused();
+      isPaused = window.rmp.paused;
       if (isPaused) {
-        window.rmp.play();
+        window.rmp.play().then(() => {
+          console.log('play was successful');
+        }).catch(warning => {
+          // something went wrong and the play request was not successful
+          console.warn(warning);
+        });
       } else {
         window.rmp.pause();
       }
@@ -125,9 +142,9 @@ var _onKeyDown = function (e) {
 };
 
 // register additional keys as per https://developer.samsung.com/smarttv/develop/guides/user-interaction/remote-control.html
-var _registerKey = function () {
+const _registerKey = () => {
   try {
-    var value = tizen.tvinputdevice.getSupportedKeys();
+    const value = tizen.tvinputdevice.getSupportedKeys();
     console.log(value);
     tizen.tvinputdevice.registerKeyBatch([
       'MediaPlayPause',
@@ -146,37 +163,25 @@ document.body.addEventListener('keydown', _onKeyDown);
 _registerKey();
 
 // when player reaches loadeddata we wire the UI
-container.addEventListener('loadeddata', function () {
-  playerButtons[0].element = container.querySelector('.rmp-fast-rewind');
+window.rmp.on('loadeddata', () => {
+  playerButtons[0].element = container.querySelector('.rmp-play-pause');
   playerButtons[0].element.setAttribute('data-button-id', '0');
-  playerButtons[1].element = container.querySelector('.rmp-i-quick-rewind-tv');
+
+  playerButtons[1].element = container.querySelector('.rmp-fast-rewind');
   playerButtons[1].element.setAttribute('data-button-id', '1');
-  playerButtons[2].element = container.querySelector('.rmp-play-pause');
+
+  playerButtons[2].element = container.querySelector('.rmp-i-quick-rewind-tv');
   playerButtons[2].element.setAttribute('data-button-id', '2');
+
   playerButtons[3].element = container.querySelector('.rmp-i-quick-forward-tv');
   playerButtons[3].element.setAttribute('data-button-id', '3');
+
   playerButtons[4].element = container.querySelector('.rmp-fast-forward');
   playerButtons[4].element.setAttribute('data-button-id', '4');
 });
 
-container.addEventListener('adstarted', function () {
-  var skipButton = {
-    name: 'skipAd',
-    element: container.querySelector('.rmp-ad-container-skip')
-  };
-  if (skipButton.element) {
-    playerButtons.push(skipButton);
-    skipButton.element.setAttribute('data-button-id', '5');
-    _setActiveButton(5);
-  }
-});
-
-container.addEventListener('addestroyed', function () {
-  // remove skip button if needs be
-  if (playerButtons.length === 6) {
-    playerButtons.pop();
-  }
-  setTimeout(function () {
-    _setActiveButton(2);
+window.rmp.on('addestroyed', () => {
+  setTimeout(() => {
+    _setActiveButton(0);
   }, 1000);
 });

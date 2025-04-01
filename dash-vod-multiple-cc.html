@@ -10,24 +10,23 @@
 </head>
 
 <body>
-	<script src="https://cdn.radiantmediatechs.com/rmp/8.4.10/js/rmp.min.js"></script>
+	<script src="https://cdn.radiantmediatechs.com/rmp/10.1.2/js/rmp.min.js"></script>
 	<div id="rmp"></div>
 	<script>
 		const ccFiles = [
 			['en', 'English', 'https://www.radiantmediaplayer.com/media/vtt/captions/cc.vtt'],
 			['fr', 'Français', 'https://www.radiantmediaplayer.com/media/vtt/captions/cc-fr.vtt']
 		];
-		var src = {
+		const src = {
 			dash: 'https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/manifest.mpd'
 		};
-		var settings = {
+		const settings = {
 			licenseKey: 'your-license-key',
-			src: src,
+			src,
 			autoplay: true,
 			capLevelToPlayerSize: false,
-			ignoreDevicePixelRatio: false,
 			disableKeyboardControl: true,
-			ccFiles: ccFiles,
+			ccFiles,
 			delayToFade: 5000,
 			ccFontSize: 3,
 			contentMetadata: {
@@ -35,8 +34,20 @@
 			},
 			skin: 'tv'
 		};
-		window.rmp = new RadiantMP('rmp');
-		window.rmp.init(settings);
+		const elementID = 'rmp';
+		// Create an object based on RadiantMP constructor
+		window.rmp = new RadiantMP(elementID);
+		// Initialization ... and done!
+		async function initRmpPlayer() {
+			try {
+				await window.rmp.init(settings);
+			} catch (error) {
+				// This should not happen often, but when it happens it could be due to:
+				// invalid license key|cannot find container element (or PARENT)|no playback support
+				console.error('Radiant Media Player failed to initialize', error);
+			}
+		}
+		initRmpPlayer();
 	</script>
 	<script src="js/player-cc.js"></script>
 </body>
